@@ -1,12 +1,18 @@
 #include "StepMotor.h"
 
-StepMotor::StepMotor()
+StepDirection StepMotor::getDirection()
 {
-
+    return direction;
 }
 
-StepMotor::StepMotor(uint8_t _enPin, uint8_t _dirPin, uint8_t _stepPin)
-:StepMotorBase(_enPin, _dirPin, _stepPin)
+int StepMotor::getRPM()
 {
-    
+    return rpm;
 }
+
+bool StepMotor::isActive()
+{
+    return active;
+}
+
+

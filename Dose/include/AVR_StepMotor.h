@@ -1,7 +1,7 @@
-#include "StepMotorDriver.h"
+#include "StepMotor.h"
 #include "mwc_stepper.h"
 
-class AVR_StepMotor: public StepMotorDriver
+class AVR_StepMotor: public StepMotor
 {
     private:
     MWCSTEPPER driver;

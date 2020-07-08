@@ -1,18 +1,32 @@
-#ifndef _StepMotor_
-#define _StepMotor_
+#ifndef _StepMotorDriver_
+#define _StepMotorDriver_
 
-#ifdef ARDUINO 
-#include "AVR_StepMotor.h"
-typedef AVR_StepMotor StepMotorBase;
-#endif
-
-
-class StepMotor: public StepMotorBase
+enum StepDirection
 {
-
-    public:
-    StepMotor();
-    StepMotor(uint8_t _enPin, uint8_t _dirPin, uint8_t _stepPin);
+    Left = 0,
+    Right = 1
 };
 
-#endif
+class StepMotor
+{
+    public:
+   
+    void virtual setRPM(int rpm) = 0;
+    void virtual run() = 0;
+    void virtual stop() = 0;
+    void virtual setDirection(StepDirection dir) = 0;
+    void virtual setPulse(int p) = 0;
+    StepDirection getDirection();
+    int getRPM();
+    bool isActive();
+
+
+
+    protected:
+    StepDirection direction;
+    bool active;
+    int pulse;
+    int rpm;
+};
+
+#endif 
