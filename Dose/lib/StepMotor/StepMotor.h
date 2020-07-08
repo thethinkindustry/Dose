@@ -1,5 +1,6 @@
-#ifndef _StepMotorDriver_
-#define _StepMotorDriver_
+#ifndef _StepMotor_
+#define _StepMotor_
+
 
 enum StepDirection
 {
@@ -10,12 +11,11 @@ enum StepDirection
 class StepMotor
 {
     public:
-   
-    void virtual setRPM(int rpm) = 0;
-    void virtual run() = 0;
-    void virtual stop() = 0;
-    void virtual setDirection(StepDirection dir) = 0;
-    void virtual setPulse(int p) = 0;
+    virtual void  setRPM(int rpm) = 0;
+    virtual void  run() = 0;
+    virtual void  stop() = 0;
+    virtual void  setDirection(StepDirection dir) = 0;
+    virtual void  setPulse(int p) = 0;
     StepDirection getDirection();
     int getRPM();
     bool isActive();

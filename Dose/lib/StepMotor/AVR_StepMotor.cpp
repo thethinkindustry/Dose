@@ -1,5 +1,6 @@
 #include "AVR_StepMotor.h"
 
+#ifndef TESTING_NATIVE
 
 AVR_StepMotor::AVR_StepMotor()
 {
@@ -50,3 +51,4 @@ void AVR_StepMotor::setPulse(int p)
     driver.set(direction, rpm, pulse);
 }
 
+#endif

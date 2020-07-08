@@ -1,5 +1,11 @@
-#include "StepMotor.h"
+#ifndef _AVR_StepMotor_
+#define _AVR_StepMotor_
+
+#include <StepMotor.h>
+#ifndef TESTING_NATIVE
 #include "mwc_stepper.h"
+
+
 
 class AVR_StepMotor: public StepMotor
 {
@@ -14,6 +20,7 @@ class AVR_StepMotor: public StepMotor
     void setDirection(StepDirection dir);
     void setPulse(int p);
 
-    
-
 };
+
+#endif
+#endif
