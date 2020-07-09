@@ -30,11 +30,13 @@ class ButtonFunc
 
 class Button
 {
-    private:
+    protected:
     ButtonMode mode;
     ButtonState state;
-    ButtonFunc* pressTasks[];
-    ButtonFunc* releaseTasks[];
+    ButtonFunc** pressTasks;
+    ButtonFunc** releaseTasks;
+
+    int pool_size = 5;
     
     public:
     void addPressTask(ButtonFunc* func);
@@ -48,3 +50,4 @@ class Button
 
 
 };
+
