@@ -1,10 +1,7 @@
+#ifndef UNIT_TEST
+#ifdef ARDUINO
 #include <Arduino.h>
 #include <AVR_StepMotor.h>
-
-
-#ifndef UNIT_TEST
-
-#ifdef ARDUINO 
 typedef AVR_StepMotor StepMotorBase;
 #endif
 
@@ -23,4 +20,4 @@ void loop() {
   // put your main code here, to run repeatedly:
 }
 
-#endif
+#endif // UNIT_TEST
