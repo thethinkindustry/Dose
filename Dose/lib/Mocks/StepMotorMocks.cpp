@@ -37,11 +37,11 @@ void StepMotorMock::stop()
 void StepMotorMock::run()
 {
     active = true;
-}
 
-void StepMotorMock::setPulse(int pulse)
+}
+void StepMotorMock::setPulse(int p)
 {
-    this->pulse = pulse;
+    this->pulse = p;
 }
 
 void StepMotorMock::start()

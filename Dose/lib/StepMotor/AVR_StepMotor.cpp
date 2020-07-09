@@ -34,17 +34,15 @@ void AVR_StepMotor::setRPM(int _rpm)
 void AVR_StepMotor::setDirection(StepDirection dir)
 {
     direction = dir;
-    driver.set(direction, rpm, pulse);
-
 }
 
 void AVR_StepMotor::setPulse(int p)
 {
-    pulse = p;
-    driver.set(direction, rpm, pulse);
+   pulse=p;
 }
 void AVR_StepMotor::set(bool _dir, uint8_t _rpm, uint16_t _pulse){
-
+ rpm_t = 60000000 / 2 / _pulse / _rpm;
+ direction=_dir;
 }
 
 void AVR_StepMotor::stop()
