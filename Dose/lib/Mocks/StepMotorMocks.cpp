@@ -43,3 +43,8 @@ void StepMotorMock::setPulse(int pulse)
 {
     this->pulse = pulse;
 }
+
+void StepMotorMock::start()
+{
+    active = true;
+}

@@ -17,7 +17,7 @@ void test_function_stepmotor_initilization()
 void test_function_stepmotor_run()
 {
     motor = new StepMotorMock(0, 0, 0);
-    motor->run();
+    motor->start();
     TEST_ASSERT_EQUAL(true, motor->isActive());
 }
 
@@ -26,5 +26,6 @@ int main()
     
     UNITY_BEGIN();
     RUN_TEST(test_function_stepmotor_initilization);
+    RUN_TEST(test_function_stepmotor_run);
     return UNITY_END();
 }

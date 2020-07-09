@@ -1,6 +1,7 @@
 #ifndef _StepMotor_
 #define _StepMotor_
 
+#include <stdint.h>
 
 enum StepDirection
 {
@@ -12,7 +13,7 @@ class StepMotor
 {
     public:
     virtual void  setRPM(int rpm) = 0;
-    virtual void  run() = 0;
+    virtual void  start() = 0;
     virtual void  stop() = 0;
     virtual void  setDirection(StepDirection dir) = 0;
     virtual void  setPulse(int p) = 0;
@@ -20,13 +21,12 @@ class StepMotor
     int getRPM();
     bool isActive();
 
-
-
     protected:
     StepDirection direction;
     bool active;
-    int pulse;
-    int rpm;
+    uint8_t pulse;
+    uint8_t rpm;
+    uint8_t rpm_t;
 };
 
 #endif 
