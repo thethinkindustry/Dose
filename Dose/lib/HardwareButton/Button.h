@@ -8,8 +8,7 @@ enum ButtonMode
 enum ButtonState
 {
     Pressed,
-    Down,
-    Up,
+    Released
 };
 
 
@@ -37,6 +36,7 @@ class Button
     ButtonFunc** releaseTasks;
 
     int pool_size = 5;
+    int index = 0;
     
     public:
     void addPressTask(ButtonFunc* func);
@@ -46,7 +46,7 @@ class Button
 
     ButtonState checkState();
 
-    virtual void update() = 0;
+    virtual void update(int logic) = 0;
 
 
 };

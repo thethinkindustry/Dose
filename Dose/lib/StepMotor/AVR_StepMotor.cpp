@@ -12,13 +12,16 @@ AVR_StepMotor::AVR_StepMotor()
 
 AVR_StepMotor::AVR_StepMotor(uint8_t _enPin, uint8_t _dirPin, uint8_t _stepPin)
 {
-    driver = MWCSTEPPER( _enPin, _dirPin, _stepPin);
-    driver.init();
+
     active = false;
     direction = StepDirection::Right;
     rpm = 500;
     pulse = 200;
     setRPM(rpm);
+    pinMode(stepPin, OUTPUT);
+	pinMode(dirPin, OUTPUT);
+	pinMode(enPin, OUTPUT);
+	digitalWrite(enPin, LOW);
 }
 
 inline void AVR_StepMotor::start()
@@ -29,7 +32,7 @@ inline void AVR_StepMotor::start()
 void AVR_StepMotor::setRPM(int _rpm)
 {
     rpm = _rpm;
-    rpm_t = 60000000 / 2 / _pulse / _rpm;
+    rpm_t = 60000000 / 2 / pulse / _rpm;
 }
 void AVR_StepMotor::setDirection(StepDirection dir)
 {
@@ -40,9 +43,9 @@ void AVR_StepMotor::setPulse(int p)
 {
    pulse=p;
 }
-void AVR_StepMotor::set(bool _dir, uint8_t _rpm, uint16_t _pulse){
- rpm_t = 60000000 / 2 / _pulse / _rpm;
- direction=_dir;
+void AVR_StepMotor::set(StepDirection _dir, uint8_t _rpm, uint16_t _pulse){
+    rpm_t = 60000000 / 2 / _pulse / _rpm;
+    direction = _dir;
 }
 
 void AVR_StepMotor::stop()

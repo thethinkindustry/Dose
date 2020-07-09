@@ -21,7 +21,8 @@ void* ButtonFunc::operator()(void* data)
 
 void Button::addPressTask(ButtonFunc* f)
 {
-
+    pressTasks[index] = f;
+    index++;
 }
 
 void Button::addReleaseTask(ButtonFunc* f)

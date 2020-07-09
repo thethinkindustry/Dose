@@ -22,7 +22,7 @@ class AVR_StepMotor: public StepMotor
     void setDirection(StepDirection dir);
     void setPulse(int p);
     void setRPM(int rpm);
-    void set(bool _dir, uint8_t _rpm, uint16_t _pulse);
+    void set(StepDirection _dir, uint8_t _rpm, uint16_t _pulse);
 };
 
 #endif
