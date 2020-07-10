@@ -45,5 +45,15 @@ AVR_Button** AVR_Button::getButtons()
     
 }
 
+void AVR_Button::updateButtons(void*)
+{
+    for(int i = 0; i< AVR_Button::total(); i++)
+    {
+        auto button = AVR_Button::getButtons()[i];
+        uint8_t state = digitalRead(button->uno_pin);
+        button->update(state);
+    }
+}
+
 
 

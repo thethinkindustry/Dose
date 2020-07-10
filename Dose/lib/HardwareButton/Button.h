@@ -1,6 +1,6 @@
 #ifndef _Button_
 #define _Button_
-
+#include <stdint.h>
 #define BUTTON_MAX_BUTTONS 5
 #define BUTTON_MAX_TASKS 5
 
@@ -32,7 +32,7 @@ class Button
 
 
     protected:
-    ButtonMode mode = ButtonMode::PullDown;
+    ButtonMode mode = ButtonMode::PullUp;
     ButtonState state = ButtonState::Released;
     ButtonFunc pressTasks[maxTasks];
     ButtonFunc releaseTasks[maxTasks];
@@ -44,7 +44,7 @@ class Button
  
     ButtonState checkState();
 
-    void update(int logic);
+    void update(uint8_t logic);
 
 
 };

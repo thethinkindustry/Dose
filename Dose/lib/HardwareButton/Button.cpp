@@ -1,4 +1,3 @@
-
 #include <Button.h>
 
 
@@ -30,7 +29,7 @@ ButtonState Button::checkState()
 
 
 
-void Button::update(int logic)
+void Button::update(uint8_t logic)
 {
     if(mode == ButtonMode::PullDown)
     {

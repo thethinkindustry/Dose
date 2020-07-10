@@ -22,6 +22,7 @@ class AVR_Button: public Button
     AVR_Button(int pin, int port);
     static int total();
     static AVR_Button** getButtons();
+    static void updateButtons(void*); 
 
 };
 
