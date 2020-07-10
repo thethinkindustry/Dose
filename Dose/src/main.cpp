@@ -9,6 +9,7 @@ typedef AVR_StepMotor StepMotorBase;
 
 #endif
 
+unsigned long time;
 void ftest(void* data)
 {
   
@@ -47,10 +48,14 @@ int main() {
   //StaticTimer timer2(20);
   //timer2.addTask(AVR_Button::updateButtons);
   Serial.begin(9600);
+  volatile unsigned long ticks = 0;
+
 
   while(1)
   {
-    AVR_Button::updateButtons(nullptr);
+    AVR_Button::updateButtons(millis());
+
+
     //timer1.update(millis());
     //timer2.update(millis());
     //motor.run();

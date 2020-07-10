@@ -1,7 +1,6 @@
 #include <Button.h>
 
 
-
 //TODO- add max control
 Button::Button()
 {
@@ -34,13 +33,15 @@ ButtonState Button::checkState()
 
 
 
-void Button::update(uint8_t logic, uint64_t ticks = 0)
+
+
+void Button::update(uint8_t logic, unsigned long ticks)
 {
-    if(deadtime_ms < (ticks - last_ticks))
-        return;
+   // if(deadtime_ms > (ticks - last_ticks))
+     //   return;
     if(mode == ButtonMode::PullDown)
     {
-        if(logic == 1 && state == ButtonState::Released)
+        if((logic == 1) && (state == ButtonState::Released))
         {
 
             for(int i = 0; i< index_releaseTask; i++) {
@@ -49,22 +50,25 @@ void Button::update(uint8_t logic, uint64_t ticks = 0)
                     
             }
             state = ButtonState::Pressed;
+            last_ticks = ticks;
         }
 
-        else
+        else if((logic == 0) && (state == ButtonState::Pressed))
         {
-            for(int i = 0; i< index_pressTask; i++) {
+            for(int i = 0; i< index_releaseTask; i++) {
                 if(releaseTasks[i] != nullptr)
                     (*releaseTasks[i])(nullptr);
             }
             state = ButtonState::Released;
+            last_ticks = ticks;
         }
+
         
     }
 
     else
     {
-        if(logic == 0 && state == ButtonState::Released)
+        if((logic == 0) && (state == ButtonState::Released))
         {
             for(int i = 0; i< index_pressTask; i++) {
                 if(pressTasks[i] != nullptr)
@@ -72,17 +76,21 @@ void Button::update(uint8_t logic, uint64_t ticks = 0)
                     
             }
             state = ButtonState::Pressed;
+            last_ticks = ticks;
         }
 
-        else
+        else if((logic == 1) && (state == ButtonState::Pressed))
         {
             for(int i = 0; i< index_releaseTask; i++) {
                 if(releaseTasks[i] != nullptr)
                     (*releaseTasks[i])(nullptr);
             }
             state = ButtonState::Released;
+            last_ticks = ticks;
         }
+
     }
+    
 
  
 }

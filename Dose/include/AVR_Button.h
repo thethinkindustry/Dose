@@ -2,7 +2,7 @@
 #define _AVR_Button_
 
 #include <Button.h>
-
+#include <Arduino.h>
 class AVR_Button: public Button
 {
 
@@ -22,7 +22,7 @@ class AVR_Button: public Button
     AVR_Button(int pin, int port);
     static int total();
     static AVR_Button** getButtons();
-    static void updateButtons(void*); 
+    static void updateButtons(uint64_t ticks); 
 
 };
 

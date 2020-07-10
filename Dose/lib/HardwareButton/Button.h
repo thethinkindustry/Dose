@@ -1,5 +1,6 @@
 #ifndef _Button_
 #define _Button_
+
 #include <stdint.h>
 #define BUTTON_MAX_BUTTONS 5
 #define BUTTON_MAX_TASKS 5
@@ -30,6 +31,8 @@ class Button
     int button_index = 0;
     uint64_t last_ticks = 0;
     int deadtime_ms = 50;
+    bool state_changed = false;
+    ButtonState last_state;
 
 
 
@@ -47,7 +50,7 @@ class Button
  
     ButtonState checkState();
 
-    void update(uint8_t logic, uint64_t ticks);
+    void update(uint8_t logic, unsigned long ticks);
 
 
 };
