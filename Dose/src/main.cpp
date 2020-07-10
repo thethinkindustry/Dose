@@ -34,6 +34,8 @@ int main() {
   button1.addPressTask(ftest);
   button1.addReleaseTask(ftest2);
   
+  AVR_Button button2(10);
+  
 
   StaticTimer timer1(400);
   timer1.addTask(ftest);
