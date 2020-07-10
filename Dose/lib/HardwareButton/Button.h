@@ -1,3 +1,10 @@
+#ifndef _Button_
+#define _Button_
+
+#define BUTTON_MAX_BUTTONS 5
+#define BUTTON_MAX_TASKS 5
+
+using ButtonFunc = void (*) (void*);
 
 enum ButtonMode
 {
@@ -12,42 +19,34 @@ enum ButtonState
 };
 
 
-class ButtonFunc
-{
-    private:
-    void* (*func) (void*) = nullptr;
-
-    public:
-    ButtonFunc();
-    
-    ButtonFunc(void* (*f)(void*));
-
-
-
-    void* operator()(void* data);
-};
-
 class Button
 {
+
+    private:
+    static const int maxTasks = BUTTON_MAX_TASKS;
+    static const int max_buttons = BUTTON_MAX_BUTTONS;
+    int index_pressTask = 0;
+    int index_releaseTask = 0;
+    int button_index = 0;
+
+
+
     protected:
-    ButtonMode mode;
-    ButtonState state;
-    ButtonFunc** pressTasks;
-    ButtonFunc** releaseTasks;
+    ButtonMode mode = ButtonMode::PullDown;
+    ButtonState state = ButtonState::Released;
+    ButtonFunc pressTasks[maxTasks];
+    ButtonFunc releaseTasks[maxTasks];
 
-    int pool_size = 5;
-    int index = 0;
-    
     public:
-    void addPressTask(ButtonFunc* func);
-    void addReleaseTask(ButtonFunc* func);
-    void removePressTask(ButtonFunc* func);
-    void removeReleaseTask(ButtonFunc* func);
-
+    Button();
+    void addPressTask(ButtonFunc func);
+    void addReleaseTask(ButtonFunc func);
+ 
     ButtonState checkState();
 
-    virtual void update(int logic) = 0;
+    void update(int logic);
 
 
 };
 
+#endif

@@ -3,45 +3,80 @@
 
 
 
-ButtonFunc::ButtonFunc()
+//TODO- add max control
+Button::Button()
 {
 
 }
 
-ButtonFunc::ButtonFunc(void* (f) (void*))
+//TODO- add bound control
+void Button::addPressTask(ButtonFunc f)
 {
-    func = f;
+    pressTasks[index_pressTask] = f;
+    index_pressTask++;
 }
 
-void* ButtonFunc::operator()(void* data)
+//TODO- add bound control
+void Button::addReleaseTask(ButtonFunc f)
 {
-    func(data);
-}
-
-
-void Button::addPressTask(ButtonFunc* f)
-{
-    pressTasks[index] = f;
-    index++;
-}
-
-void Button::addReleaseTask(ButtonFunc* f)
-{
-
+    releaseTasks[index_releaseTask] = f;
+    index_releaseTask++;
 } 
-
-void Button::removePressTask(ButtonFunc* f)
-{
-
-}
-
-void Button::removeReleaseTask(ButtonFunc* f)
-{
-
-}
 
 ButtonState Button::checkState()
 {
     return state;
+}
+
+
+
+void Button::update(int logic)
+{
+    if(mode == ButtonMode::PullDown)
+    {
+        if(logic == 1 && state == ButtonState::Released)
+        {
+            for(int i = 0; i< index_releaseTask; i++) {
+                if(pressTasks[i] != nullptr)
+                    (*pressTasks[i])(nullptr);
+                    
+            }
+            state = ButtonState::Pressed;
+        }
+
+        else
+        {
+            for(int i = 0; i< index_pressTask; i++) {
+                if(releaseTasks[i] != nullptr)
+                    (*releaseTasks[i])(nullptr);
+            }
+            state = ButtonState::Released;
+        }
+        
+    }
+
+    else
+    {
+        if(logic == 0 && state == ButtonState::Released)
+        {
+            for(int i = 0; i< index_pressTask; i++) {
+                if(pressTasks[i] != nullptr)
+                    (*pressTasks[i])(nullptr);
+                    
+            }
+            state = ButtonState::Pressed;
+        }
+
+        else
+        {
+            for(int i = 0; i< index_releaseTask; i++) {
+                if(releaseTasks[i] != nullptr)
+                    (*releaseTasks[i])(nullptr);
+            }
+            state = ButtonState::Released;
+        }
+    }
+
+ 
 }
 

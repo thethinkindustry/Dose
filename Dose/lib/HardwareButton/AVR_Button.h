@@ -1,3 +1,5 @@
+#ifndef _AVR_Button_
+#define _AVR_Button_
 
 #include <Button.h>
 
@@ -7,11 +9,20 @@ class AVR_Button: public Button
     private:
     int pin;
     int port;
-
+    static AVR_Button* buttons[];
+    static int total_buttons;
+    static void add(AVR_Button* b);
 
     public:
     AVR_Button();
+#ifdef ARDUINO
+    int uno_pin;
+    AVR_Button(int pin);
+#endif
     AVR_Button(int pin, int port);
-    void update(int logic);
+    static int total();
+    static AVR_Button** getButtons();
 
 };
+
+#endif

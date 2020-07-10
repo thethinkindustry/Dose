@@ -13,7 +13,7 @@ class AVR_StepMotor: public StepMotor
 	uint8_t enPin;
 	uint8_t stepPin;
 	uint8_t dirPin;
-    void run();
+    
     public:
     AVR_StepMotor();
     AVR_StepMotor(uint8_t _enPin, uint8_t _dirPin, uint8_t _stepPin);
@@ -23,6 +23,7 @@ class AVR_StepMotor: public StepMotor
     void setPulse(int p);
     void setRPM(int rpm);
     void set(StepDirection _dir, uint8_t _rpm, uint16_t _pulse);
+    void run();
 };
 
 #endif

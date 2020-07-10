@@ -1,26 +1,43 @@
-//#ifndef UNIT_TEST
+#ifdef ARDUINO
 #include <Arduino.h>
 #include <AVR_StepMotor.h>
 #include <AVR_Button.h>
+#include <StaticTimer.h>
 typedef AVR_StepMotor StepMotorBase;
-#ifdef ARDUINO
-
 #endif
 
-AVR_Button* button = nullptr;
 
-void* ftest(void* data)
+
+
+
+
+
+void ftest(void* data)
 {
-  digitalWrite(13, HIGH);
-  _delay_ms(500);
-  digitalWrite(13, LOW);
-  _delay_ms(500);
+  
+  auto val = digitalRead(LED_BUILTIN);
+  digitalWrite(LED_BUILTIN,!val);
 }
 
-void setup() {
+void updateButtons(void*)
+{
+  for(int i = 0; i< AVR_Button::total(); i++)
+  {
+    auto button = AVR_Button::getButtons()[i];
+    int state = digitalRead(button->uno_pin);
+    button->update(state);
+  }
+}
 
-  pinMode(13, OUTPUT);
+int main() {
+
+  
+  AVR_Button button1(13);
+  button1.addPressTask(ftest);
+
+  pinMode(LED_BUILTIN, OUTPUT);
   AVR_StepMotor motor(0,0,0);
+
   
   motor.setDirection(StepDirection::Right);
   motor.setRPM(200);
@@ -29,17 +46,22 @@ void setup() {
   _delay_ms(3000);
   motor.stop();
 
-  button = new AVR_Button();
-  ButtonFunc f(ftest);
-  button->addPressTask(&f);
+  StaticTimer timer1(400);
+  timer1.addTask(ftest);
+
+
+  StaticTimer timer2(20);
+  timer2.addTask(updateButtons);
+
+  while(1)
+  {
+    timer1.update(millis());
+    timer2.update(millis());
+    motor.run();
+
+  }
 
   
 
 }
 
-void loop() {
-  _delay_ms(1000);
-  button->update();
-}
-
-//#endif // UNIT_TEST

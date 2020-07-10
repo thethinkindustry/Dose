@@ -1,71 +1,49 @@
 #include <AVR_Button.h>
 
+
+int AVR_Button::total_buttons = 0;
+AVR_Button* AVR_Button::buttons[BUTTON_MAX_BUTTONS];
+
+// ARDUINO SPECIFIC
+#ifdef ARDUINO
+#include <Arduino.h>
+AVR_Button::AVR_Button(int pin)
+{
+    add(this);
+    uno_pin = pin;
+    pinMode(pin, INPUT);
+}
+#endif
 AVR_Button::AVR_Button()
 {
+    add(this);
 
-    pressTasks = new ButtonFunc*[5];
-    releaseTasks = new ButtonFunc*[5];
     
 }
 
 AVR_Button::AVR_Button(int _port, int _pin)
+:port{_port}, pin{_pin}
 {  
-
-    port = _port;
-    pin = _pin;
-    pressTasks = new ButtonFunc*[5];
-    releaseTasks = new ButtonFunc*[5];
-
+    add(this);
 }
 
-void AVR_Button::update(int logic)
+
+void AVR_Button::add(AVR_Button* b)
 {
-    if(mode == ButtonMode::PullDown)
-    {
-        if(logic == 1 && state == ButtonState::Released)
-        {
-            for(int i = 0; i< pool_size; i++) {
-                if(pressTasks[i] != nullptr)
-                    (*pressTasks[i])(nullptr);
-                    
-            }
-            state = ButtonState::Pressed;
-        }
-
-        else
-        {
-            for(int i = 0; i< pool_size; i++) {
-                if(releaseTasks[i] != nullptr)
-                    (*releaseTasks[i])(nullptr);
-            }
-            state = ButtonState::Released;
-        }
-        
-    }
-
-    else
-    {
-        if(logic == 0 && state == ButtonState::Released)
-        {
-            for(int i = 0; i< pool_size; i++) {
-                if(pressTasks[i] != nullptr)
-                    (*pressTasks[i])(nullptr);
-                    
-            }
-            state = ButtonState::Pressed;
-        }
-
-        else
-        {
-            for(int i = 0; i< pool_size; i++) {
-                if(releaseTasks[i] != nullptr)
-                    (*releaseTasks[i])(nullptr);
-            }
-            state = ButtonState::Released;
-        }
-    }
-
- 
+    buttons[total_buttons] = b;
+    total_buttons++;
 }
+
+int AVR_Button::total()
+{
+    return total_buttons;
+}
+
+AVR_Button** AVR_Button::getButtons()
+{
+    return buttons;
+    
+}
+
 
 
