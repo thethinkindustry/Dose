@@ -18,6 +18,8 @@ void test_function_statictimer_update()
     TEST_ASSERT_EQUAL(0, testvar);
     timer.update(220);
     TEST_ASSERT_EQUAL(1, testvar);
+    timer.update(500);
+    TEST_ASSERT_EQUAL(2, testvar);
 
 }
 

@@ -51,7 +51,7 @@ void AVR_Button::updateButtons(void*)
     {
         auto button = AVR_Button::getButtons()[i];
         uint8_t state = digitalRead(button->uno_pin);
-        button->update(state);
+        button->update(state, millis());
     }
 }
 

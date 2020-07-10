@@ -20,7 +20,12 @@ void Button::addReleaseTask(ButtonFunc f)
 {
     releaseTasks[index_releaseTask] = f;
     index_releaseTask++;
-} 
+}
+
+void Button::setMode(ButtonMode m)
+{
+    mode = m;
+}
 
 ButtonState Button::checkState()
 {
@@ -29,12 +34,15 @@ ButtonState Button::checkState()
 
 
 
-void Button::update(uint8_t logic)
+void Button::update(uint8_t logic, uint64_t ticks = 0)
 {
+    if(deadtime_ms < (ticks - last_ticks))
+        return;
     if(mode == ButtonMode::PullDown)
     {
         if(logic == 1 && state == ButtonState::Released)
         {
+
             for(int i = 0; i< index_releaseTask; i++) {
                 if(pressTasks[i] != nullptr)
                     (*pressTasks[i])(nullptr);

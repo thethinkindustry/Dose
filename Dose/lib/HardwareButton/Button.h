@@ -28,6 +28,8 @@ class Button
     int index_pressTask = 0;
     int index_releaseTask = 0;
     int button_index = 0;
+    uint64_t last_ticks = 0;
+    int deadtime_ms = 50;
 
 
 
@@ -41,10 +43,11 @@ class Button
     Button();
     void addPressTask(ButtonFunc func);
     void addReleaseTask(ButtonFunc func);
+    void setMode(ButtonMode m);
  
     ButtonState checkState();
 
-    void update(uint8_t logic);
+    void update(uint8_t logic, uint64_t ticks);
 
 
 };

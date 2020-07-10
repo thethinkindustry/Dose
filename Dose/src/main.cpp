@@ -1,3 +1,5 @@
+#ifndef UNIT_TEST
+
 #ifdef ARDUINO
 #include <Arduino.h>
 #include <AVR_StepMotor.h>
@@ -31,6 +33,7 @@ int main() {
 
   pinMode(LED_BUILTIN, OUTPUT);
   AVR_Button button1(12);
+  button1.setMode(ButtonMode::PullUp);
   button1.addPressTask(ftest);
   button1.addReleaseTask(ftest2);
   
@@ -59,3 +62,4 @@ int main() {
 
 }
 
+#endif
