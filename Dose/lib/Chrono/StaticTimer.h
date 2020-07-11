@@ -21,9 +21,10 @@ class StaticTimer
     TimerTask tasks[max_tasks];
     int index = 0;
     inline void doTasks();
+    StaticTimer();
 
     public:
-    StaticTimer();
+
     StaticTimer(uint64_t p);
     bool addTask(TimerTask t);
     void update(uint64_t ticks);

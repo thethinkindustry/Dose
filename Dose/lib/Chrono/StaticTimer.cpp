@@ -3,7 +3,7 @@
 StaticTimer::StaticTimer(uint64_t p)
 :period{p}
 {
-
+    last_ticks = 0;
 }
 
 bool StaticTimer::addTask(TimerTask t)

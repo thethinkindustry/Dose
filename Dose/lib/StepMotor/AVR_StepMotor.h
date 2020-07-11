@@ -13,9 +13,9 @@ class AVR_StepMotor: public StepMotor
 	uint8_t enPin;
 	uint8_t stepPin;
 	uint8_t dirPin;
-    
-    public:
     AVR_StepMotor();
+
+    public:
     AVR_StepMotor(uint8_t _enPin, uint8_t _dirPin, uint8_t _stepPin);
     void stop();
     void start();

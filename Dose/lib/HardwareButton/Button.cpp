@@ -31,14 +31,20 @@ ButtonState Button::checkState()
     return state;
 }
 
+void Button::setDebounceDeadtime(int dtime_ms)
+{
+    deadtime_ms = dtime_ms;
+    if(deadtime_ms < 0)
+        deadtime_ms = 0;
+}
 
 
 
 
 void Button::update(uint8_t logic, unsigned long ticks)
 {
-   // if(deadtime_ms > (ticks - last_ticks))
-     //   return;
+    if(deadtime_ms > (ticks - last_ticks))
+        return;
     if(mode == ButtonMode::PullDown)
     {
         if((logic == 1) && (state == ButtonState::Released))
@@ -63,6 +69,15 @@ void Button::update(uint8_t logic, unsigned long ticks)
             last_ticks = ticks;
         }
 
+        else if((logic == 0) && (state == ButtonState::Released))
+        {
+            for(int i = 0; i< index_pressTask; i++) {
+                if(releaseTasks[i] != nullptr)
+                    (*releaseTasks[i])(nullptr);
+            }
+            state = ButtonState::Released;
+            last_ticks = ticks;
+        }
         
     }
 
@@ -89,6 +104,15 @@ void Button::update(uint8_t logic, unsigned long ticks)
             last_ticks = ticks;
         }
 
+        else if((logic == 1) && (state == ButtonState::Released))
+        {
+            for(int i = 0; i< index_releaseTask; i++) {
+                if(releaseTasks[i] != nullptr)
+                    (*releaseTasks[i])(nullptr);
+            }
+            state = ButtonState::Released;
+            last_ticks = ticks;
+        }
     }
     
 

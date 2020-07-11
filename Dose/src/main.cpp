@@ -1,5 +1,3 @@
-#ifndef UNIT_TEST
-
 #ifdef ARDUINO
 #include <Arduino.h>
 #include <AVR_StepMotor.h>
@@ -9,7 +7,6 @@ typedef AVR_StepMotor StepMotorBase;
 
 #endif
 
-unsigned long time;
 void ftest(void* data)
 {
   
@@ -34,7 +31,6 @@ int main() {
 
   pinMode(LED_BUILTIN, OUTPUT);
   AVR_Button button1(12);
-  button1.setMode(ButtonMode::PullUp);
   button1.addPressTask(ftest);
   button1.addReleaseTask(ftest2);
   
@@ -48,14 +44,10 @@ int main() {
   //StaticTimer timer2(20);
   //timer2.addTask(AVR_Button::updateButtons);
   Serial.begin(9600);
-  volatile unsigned long ticks = 0;
-
 
   while(1)
   {
     AVR_Button::updateButtons(millis());
-
-
     //timer1.update(millis());
     //timer2.update(millis());
     //motor.run();
@@ -67,4 +59,3 @@ int main() {
 
 }
 
-#endif

@@ -7,6 +7,9 @@
 
 using ButtonFunc = void (*) (void*);
 
+
+//TODO- Minor Bug: if system tick value is smaller than deadtime,
+// debounce doesn't work
 enum ButtonMode
 {
     PullUp,
@@ -47,7 +50,7 @@ class Button
     void addPressTask(ButtonFunc func);
     void addReleaseTask(ButtonFunc func);
     void setMode(ButtonMode m);
- 
+    void setDebounceDeadtime(int dtime_ms);
     ButtonState checkState();
 
     void update(uint8_t logic, unsigned long ticks);

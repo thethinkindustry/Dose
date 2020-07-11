@@ -12,9 +12,9 @@ class AVR_Button: public Button
     static AVR_Button* buttons[];
     static int total_buttons;
     static void add(AVR_Button* b);
+    AVR_Button();
 
     public:
-    AVR_Button();
 #ifdef ARDUINO
     int uno_pin;
     AVR_Button(int pin);
