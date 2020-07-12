@@ -1,0 +1,19 @@
+digraph "/home/koray/Documents/PlatformIO/Projects/Dose/Dose/test" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_13e138d54eb8818da29c3992edef070a {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_13e138d54eb8818da29c3992edef070a.html"];
+    dir_13e138d54eb8818da29c3992edef070a [shape=plaintext label="test"];
+    dir_6c0c88587a4f4c16f8b64620f10752cf [shape=box label="test_common" color="black" fillcolor="white" style="filled" URL="dir_6c0c88587a4f4c16f8b64620f10752cf.html"];
+    dir_da249dfff0236c9b6645e6649c13732f [shape=box label="test_desktop" color="black" fillcolor="white" style="filled" URL="dir_da249dfff0236c9b6645e6649c13732f.html"];
+    dir_f6ea8b2b23508f8e0fceb6c53fefce7f [shape=box label="test_embedded" color="black" fillcolor="white" style="filled" URL="dir_f6ea8b2b23508f8e0fceb6c53fefce7f.html"];
+  }
+  dir_d44c64559bbebec7f509842c48db8b23 [shape=box label="include" URL="dir_d44c64559bbebec7f509842c48db8b23.html"];
+  dir_97aefd0d527b934f1d99a682da8fe6a9 [shape=box label="lib" fillcolor="white" style="filled" color="red" URL="dir_97aefd0d527b934f1d99a682da8fe6a9.html"];
+  dir_f6ea8b2b23508f8e0fceb6c53fefce7f->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="1", labeldistance=1.5 headhref="dir_000011_000000.html"];
+  dir_da249dfff0236c9b6645e6649c13732f->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="1", labeldistance=1.5 headhref="dir_000010_000000.html"];
+  dir_da249dfff0236c9b6645e6649c13732f->dir_97aefd0d527b934f1d99a682da8fe6a9 [headlabel="4", labeldistance=1.5 headhref="dir_000010_000001.html"];
+  dir_d44c64559bbebec7f509842c48db8b23->dir_97aefd0d527b934f1d99a682da8fe6a9 [headlabel="3", labeldistance=1.5 headhref="dir_000000_000001.html"];
+  dir_6c0c88587a4f4c16f8b64620f10752cf->dir_97aefd0d527b934f1d99a682da8fe6a9 [headlabel="1", labeldistance=1.5 headhref="dir_000009_000001.html"];
+}

@@ -2,9 +2,9 @@
 #define _EEPROMController_
 
 #include <PersistentStorage.h>
-#ifdef ARDUINO
+
 #include <avr/eeprom.h>
-#endif
+
 class EEPROMController : public PersistentStorage
 {
     private:

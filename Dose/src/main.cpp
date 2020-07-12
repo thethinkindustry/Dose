@@ -47,7 +47,7 @@ int main() {
 
   while(1)
   {
-    AVR_Button::updateButtons(millis());
+    AVR_Button::updateButtons(nullptr);
     //timer1.update(millis());
     //timer2.update(millis());
     //motor.run();

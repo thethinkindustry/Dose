@@ -32,8 +32,11 @@ inline void AVR_StepMotor::start()
 void AVR_StepMotor::setRPM(int _rpm)
 {
     rpm = _rpm;
-    rpm_t = 60000000 / 2 / pulse / _rpm;
+    setRPM_t();
+    
 }
+
+//TODO- change motor direction while running
 void AVR_StepMotor::setDirection(StepDirection dir)
 {
     direction = dir;
@@ -42,10 +45,13 @@ void AVR_StepMotor::setDirection(StepDirection dir)
 void AVR_StepMotor::setPulse(int p)
 {
    pulse=p;
+   setRPM_t();
 }
 void AVR_StepMotor::set(StepDirection _dir, uint8_t _rpm, uint16_t _pulse){
-    rpm_t = 60000000 / 2 / _pulse / _rpm;
     direction = _dir;
+    rpm = _rpm;
+    pulse = _pulse;
+    setRPM_t();
 }
 
 void AVR_StepMotor::stop()

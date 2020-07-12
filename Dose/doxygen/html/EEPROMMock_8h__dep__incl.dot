@@ -1,0 +1,10 @@
+digraph "/home/koray/Documents/PlatformIO/Projects/Dose/Dose/lib/Mocks/EEPROMMock.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node3 [label="/home/koray/Documents\l/PlatformIO/Projects\l/Dose/Dose/lib/Mocks/EEPROMMock.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="/home/koray/Documents\l/PlatformIO/Projects\l/Dose/Dose/lib/Mocks/EEPROMMock.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$EEPROMMock_8cpp.html"];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="/home/koray/Documents\l/PlatformIO/Projects\l/Dose/Dose/test/test_desktop\l/test_desktop.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$test__desktop_8cpp.html"];
+}

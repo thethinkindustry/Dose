@@ -2,6 +2,9 @@
 #include <StaticTimer.h>
 #include <Button.h>
 #include <EEPROMMock.h>
+#include <StepMotorMock.h>
+#include <DosingController.h>
+
 
 int testvar = 0;
 
@@ -19,10 +22,12 @@ void test_function_statictimer_update()
     TEST_ASSERT_EQUAL(0, testvar);
     timer.update(100);
     TEST_ASSERT_EQUAL(0, testvar);
+    timer.update(200);
+    TEST_ASSERT_EQUAL(0, testvar);
     timer.update(220);
-    //TEST_ASSERT_EQUAL(1, testvar);
+    TEST_ASSERT_EQUAL(1, testvar);
     timer.update(500);
-    //TEST_ASSERT_EQUAL(2, testvar);
+    TEST_ASSERT_EQUAL(2, testvar);
 
 }
 
@@ -113,9 +118,24 @@ void test_button_debounce2()
 
 }
 
+void test_dosing_controller()
+{
+    StepMotorMock motor = StepMotorMock();
+    DosingConfiguration cfg;
+    cfg.setSpeed(200);
+    DosingController doser(&motor);
+    doser.configure(cfg);
+    doser.dose();
+    TEST_ASSERT_EQUAL(true, doser.isDosing());
+    
+
+}
+
+
 
 int main()
 {
+
     UNITY_BEGIN();
     RUN_TEST(test_function_statictimer_update);
     RUN_TEST(test_button_pullup);
@@ -123,5 +143,6 @@ int main()
     RUN_TEST(test_button_debounce);
     RUN_TEST(test_button_debounce2);
     RUN_TEST(test_eeprom_write_read);
+    RUN_TEST(test_dosing_controller);
     return UNITY_END();
 }

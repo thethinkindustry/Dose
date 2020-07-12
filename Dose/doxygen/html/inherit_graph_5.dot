@@ -1,0 +1,11 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="StepMotor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classStepMotor.html"];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="AVR_StepMotor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAVR__StepMotor.html"];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="StepMotorMock",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classStepMotorMock.html"];
+}

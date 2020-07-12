@@ -3,7 +3,7 @@
 
 #include <StepMotor.h>
 #ifndef TESTING_NATIVE
-#include "mwc_stepper.h"
+#include <Arduino.h>
 
 
 
@@ -14,6 +14,7 @@ class AVR_StepMotor: public StepMotor
 	uint8_t stepPin;
 	uint8_t dirPin;
     AVR_StepMotor();
+    inline void setRPM_t();
 
     public:
     AVR_StepMotor(uint8_t _enPin, uint8_t _dirPin, uint8_t _stepPin);

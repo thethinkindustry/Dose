@@ -1,0 +1,8 @@
+digraph "/home/koray/Documents/PlatformIO/Projects/Dose/Dose/include/EEPROMController.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node4 [label="/home/koray/Documents\l/PlatformIO/Projects\l/Dose/Dose/include/EEPROMController.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="/home/koray/Documents\l/PlatformIO/Projects\l/Dose/Dose/src/EEPROMController.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$EEPROMController_8cpp.html"];
+}
