@@ -8,6 +8,7 @@ AVR_StepMotor::AVR_StepMotor()
     direction = StepDirection::Right;
     rpm = 500;
     pulse = 200;
+    last_ticks = 0;
 }
 
 AVR_StepMotor::AVR_StepMotor(uint8_t _enPin, uint8_t _dirPin, uint8_t _stepPin)
@@ -17,6 +18,7 @@ AVR_StepMotor::AVR_StepMotor(uint8_t _enPin, uint8_t _dirPin, uint8_t _stepPin)
     direction = StepDirection::Right;
     rpm = 500;
     pulse = 200;
+    last_ticks = 0;
     setRPM(rpm);
     pinMode(stepPin, OUTPUT);
 	pinMode(dirPin, OUTPUT);
@@ -61,12 +63,23 @@ void AVR_StepMotor::stop()
 }
 
 
-void AVR_StepMotor::run()
+void AVR_StepMotor::run(unsigned long ticks_us)
 { 
-	digitalWrite(stepPin, HIGH);
-	delayMicroseconds(rpm_t);
-	digitalWrite(stepPin, LOW);
-	delayMicroseconds(rpm_t);
+
+    if(step_pin_state != 1 &&  ticks_us - last_ticks >= rpm_t)
+    {
+        digitalWrite(stepPin, HIGH);
+        last_ticks = ticks_us;
+    }
+
+    else if(step_pin_state != 0 && ticks_us - last_ticks >= rpm_t)
+    {
+        digitalWrite(stepPin, LOW);
+        last_ticks = ticks_us;
+    }
+
+
+
 }
 
 

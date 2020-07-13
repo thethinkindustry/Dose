@@ -16,10 +16,12 @@ class DosingConfiguration
 {
     private:
     int volumePerSec;
+    int stepPerUnit;
 
     public:
     DosingConfiguration();
     void setSpeed(int vol);
+    static DosingConfiguration createDefault();
 
 
 };

@@ -33,13 +33,14 @@ class StepMotor
      * order to get a reliable operation.
      * 
      */
-    virtual void  run() = 0;
-    void setRPM_t();
+    virtual void  run(unsigned long ticks_us) = 0;
+
     StepDirection getDirection();
     int getRPM();
     bool isActive();
 
     protected:
+    void setRPM_t();
     StepDirection direction;
     bool active;
     uint8_t pulse;

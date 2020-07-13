@@ -13,6 +13,8 @@ class AVR_StepMotor: public StepMotor
 	uint8_t enPin;
 	uint8_t stepPin;
 	uint8_t dirPin;
+    unsigned long last_ticks;
+    int step_pin_state = 0;
     AVR_StepMotor();
     inline void setRPM_t();
 
@@ -24,7 +26,7 @@ class AVR_StepMotor: public StepMotor
     void setPulse(int p);
     void setRPM(int rpm);
     void set(StepDirection _dir, uint8_t _rpm, uint16_t _pulse);
-    void run();
+    void run(unsigned long ticks_us);
 };
 
 #endif
