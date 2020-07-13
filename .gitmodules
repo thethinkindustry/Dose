@@ -1,3 +1,2 @@
-[submodule "Dose/Dose/lib/Nextion/ITEADLIB_Arduino_Nextion"]
-	path = Dose/Dose/lib/Nextion/ITEADLIB_Arduino_Nextion
+[submodule "Dose/lib/Nextion/ITEADLIB_Arduino_Nextion"]
 	url = https://github.com/chastifole/ITEADLIB_Arduino_Nextion.git
