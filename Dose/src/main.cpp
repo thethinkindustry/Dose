@@ -2,60 +2,79 @@
 #include <Arduino.h>
 #include <AVR_StepMotor.h>
 #include <AVR_Button.h>
-#include <StaticTimer.h>
+#include <DosingController.h>
+#include <EEPROMController.h>
 typedef AVR_StepMotor StepMotorBase;
 
 #endif
 
+#include <globals.h>
+#include <program.h>
+#include <ITEADLIB_Arduino_Nextion/Nextion.h>
+
+#define PUL_PIN 11
+#define DIR_PIN 12
+#define EN_PIN 13 
+
+AVR_StepMotor motor = AVR_StepMotor(PUL_PIN,DIR_PIN, EN_PIN);
+AVR_Button pedal = AVR_Button(7);
+DosingController doser = DosingController(&motor);
+EEPROMController eeprom = EEPROMController(1024);
+ButtonFunc pedal_callback = default_pedal_callback;
+ButtonFunc pedal_release_callback = default_pedal_release_callback;
+
 void ftest(void* data)
 {
   
-  auto val = digitalRead(LED_BUILTIN);
-  digitalWrite(LED_BUILTIN,!val);
-  Serial.println("ledtest");
-
-}
-
-void ftest2(void* data)
-{
-  
-  auto val = digitalRead(LED_BUILTIN);
-  digitalWrite(LED_BUILTIN,!val);
-  Serial.println("released");
-
-}
-
-
-
-int main() {
-
-  pinMode(LED_BUILTIN, OUTPUT);
-  AVR_Button button1(12);
-  button1.addPressTask(ftest);
-  button1.addReleaseTask(ftest2);
-  
-  AVR_Button button2(10);
-  
-
-  StaticTimer timer1(400);
-  timer1.addTask(ftest);
-
-
-  //StaticTimer timer2(20);
-  //timer2.addTask(AVR_Button::updateButtons);
-  Serial.begin(9600);
-
-  while(1)
+  Serial.println("button");
+  if(!motor.isActive())
   {
-    AVR_Button::updateButtons(nullptr);
-    //timer1.update(millis());
-    //timer2.update(millis());
-    //motor.run();
-    //Serial.println("asd");
-
+    motor.start();
+    digitalWrite(LED_BUILTIN, HIGH);
+  }
+  else
+  {
+    digitalWrite(LED_BUILTIN, LOW);
+    motor.stop();
   }
 
-  
+}
+
+void ftest_release(void* d)
+{
+  Serial.println("released");
+}
+
+void setup()
+{
+  set_pedal_callbacks_todefault();
+  pedal_callback = ftest;
+  pedal_release_callback = ftest_release;
+  doser = DosingController(&motor);
+  doser.configure(DosingConfiguration::createDefault());
+
+  pinMode(LED_BUILTIN, OUTPUT);
+  pedal.setMode(ButtonMode::PullDown);
+  pedal.setDebounceDeadtime(500);
+  pedal.addPressTask(pedal_callback);
+  pedal.addReleaseTask(pedal_release_callback);
+
+  Serial.begin(9600);
+  motor.setRPM(100);
+  motor.stop();
+  motor.start();
+}
+
+void loop()
+{
+
+
+
+  AVR_Button::updateButtons(millis());
+  doser.run(micros());
+  //auto state = pedal.checkState();
+  (*state::operation)(nullptr);
 
 }
+
 

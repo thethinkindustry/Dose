@@ -20,6 +20,7 @@ enum StepDirection
 };
 
 
+
 class StepMotor
 {
     public:
@@ -27,13 +28,15 @@ class StepMotor
     virtual void  start() = 0;
     virtual void  stop() = 0;
     virtual void  setDirection(StepDirection dir) = 0;
-    virtual void  setPulse(int p) = 0;
+    virtual void  setSteps(int s) = 0;
+    int getSteps();
     /**
      * @brief Needs to be called in main program loop as much as possible in
      * order to get a reliable operation.
      * 
      */
     virtual void  run(unsigned long ticks_us) = 0;
+    uint64_t getTotalSteps();
 
     StepDirection getDirection();
     int getRPM();
@@ -43,9 +46,10 @@ class StepMotor
     void setRPM_t();
     StepDirection direction;
     bool active;
-    uint8_t pulse;
+    uint8_t steps;
     uint8_t rpm;
     uint8_t rpm_t;
+    uint64_t total_steps;
 };
 
 #endif 

@@ -1,11 +1,10 @@
 var searchData=
 [
-  ['persistentstorage',['PersistentStorage',['../classPersistentStorage.html',1,'']]],
-  ['persistentstorage_2ecpp',['PersistentStorage.cpp',['../PersistentStorage_8cpp.html',1,'']]],
-  ['persistentstorage_2eh',['PersistentStorage.h',['../PersistentStorage_8h.html',1,'']]],
-  ['pressed',['Pressed',['../Button_8h.html#aa46074d34fe2d6631c6bd9dc74633657a05f4abb2322aa023aba9570c327aff25',1,'Button.h']]],
-  ['presstasks',['pressTasks',['../classButton.html#a7c46dd322d015e426c7d08a8ace96af1',1,'Button']]],
-  ['pulldown',['PullDown',['../Button_8h.html#a01460e52ca327f95180815b461c0dce1ac71cd2b9d40cca631e53f37874c53f5f',1,'Button.h']]],
-  ['pullup',['PullUp',['../Button_8h.html#a01460e52ca327f95180815b461c0dce1a3be493d0479ea10ea2b1fdcd7b33ec3b',1,'Button.h']]],
-  ['pulse',['pulse',['../classStepMotor.html#ac104c48de2d78dd0e1e84c324339c8d7',1,'StepMotor']]]
+  ['read',['read',['../classEEPROMController.html#ab31c03aea84e852c200550bfe3bda42f',1,'EEPROMController::read()'],['../classEEPROMMock.html#a6c0844ec0428b0993154ac3f74228de0',1,'EEPROMMock::read()'],['../classPersistentStorage.html#a67d80c839db17325cf7430a4173a2764',1,'PersistentStorage::read()']]],
+  ['released',['Released',['../Button_8h.html#aa46074d34fe2d6631c6bd9dc74633657ad9417ac74f0134b9577d1d85cf422c25',1,'Button.h']]],
+  ['releasetasks',['releaseTasks',['../classButton.html#a8f0621a2139bdb42b228ea54b1f1dcdf',1,'Button']]],
+  ['right',['Right',['../StepMotor_8h.html#a4b9ffda5c5f815c6d79590b74c5dec23ad48f7af8c070184f3774c8e85854eb66',1,'StepMotor.h']]],
+  ['rpm',['rpm',['../classStepMotor.html#a6fe1b7998283d355370fb908ae660634',1,'StepMotor']]],
+  ['rpm_5ft',['rpm_t',['../classStepMotor.html#a7ca59427ef77a4b021fff6fa744f2574',1,'StepMotor']]],
+  ['run',['run',['../classDosingController.html#afbf3d011e6072ddd25c9ffdc7317e382',1,'DosingController::run()'],['../classAVR__StepMotor.html#ad4a093762897f702c40c8b967b56a99e',1,'AVR_StepMotor::run()'],['../classStepMotor.html#a4119e236a56fab0ea38266306082cbc0',1,'StepMotor::run()']]]
 ];

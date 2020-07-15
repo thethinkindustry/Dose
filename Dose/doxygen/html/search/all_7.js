@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['isactive',['isActive',['../classStepMotor.html#a380d156ca3ee3a80dfbce625ad1a573a',1,'StepMotor']]],
-  ['isdosing',['isDosing',['../classDosingController.html#a7eee90d1aff5eaf149b24086200ebfb6',1,'DosingController']]]
+  ['left',['Left',['../StepMotor_8h.html#a4b9ffda5c5f815c6d79590b74c5dec23a9d4d8b0b72fc2659da772d761a3c5ecb',1,'StepMotor.h']]]
 ];

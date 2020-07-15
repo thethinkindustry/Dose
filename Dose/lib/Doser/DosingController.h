@@ -12,13 +12,22 @@
 #define _DosingController_
 #include <StepMotor.h>
 
+enum DosingMode
+{
+    Manual,
+    Auto
+};
+
 class DosingConfiguration
 {
-    private:
-    int volumePerSec;
-    int stepPerUnit;
 
     public:
+    int volumePerSec;
+    int stepPerUnit;
+    int motor_steps;
+    int motor_rpm;
+    uint64_t work_time;
+    uint64_t steps_to_run;
     DosingConfiguration();
     void setSpeed(int vol);
     static DosingConfiguration createDefault();
@@ -37,18 +46,28 @@ class DosingController
     StepMotor* motor;
     DosingConfiguration config;
     bool dosing;
+    uint64_t last_steps_runned;
+    DosingMode mode;
     DosingController();
+
+    void configureMotor();
     public:
     DosingController(StepMotor* motor);
+    DosingConfiguration getConfig();
     void configure(DosingConfiguration cfg);
+    void setRPM(int rpm);
     bool isDosing();
     void dose();
+    void stop(void);
+    void setMode(DosingMode m);
     /**
      * @brief Needs to be called in main program loop
      * 
      * @param ticks 
      */
     void run(unsigned long ticks);
+
+
 
 };
 

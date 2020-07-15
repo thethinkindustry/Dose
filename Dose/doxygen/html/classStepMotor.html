@@ -60,6 +60,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classStepMotor-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -88,17 +89,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af315dc8c1854b361c29b02940a0d37f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ca51b8d6110858dcf84c7267089d9e4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStepMotor.html#a4ca51b8d6110858dcf84c7267089d9e4">setPulse</a> (int p)=0</td></tr>
 <tr class="separator:a4ca51b8d6110858dcf84c7267089d9e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25ac4759649d9fa1998dd6c57bf9a3a6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStepMotor.html#a25ac4759649d9fa1998dd6c57bf9a3a6">run</a> ()=0</td></tr>
-<tr class="memdesc:a25ac4759649d9fa1998dd6c57bf9a3a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Needs to be called in main program loop as much as possible in order to get a reliable operation.  <a href="#a25ac4759649d9fa1998dd6c57bf9a3a6">More...</a><br /></td></tr>
-<tr class="separator:a25ac4759649d9fa1998dd6c57bf9a3a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70c2776169c212b57677ade43164c7a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStepMotor.html#a70c2776169c212b57677ade43164c7a2">setRPM_t</a> ()</td></tr>
-<tr class="separator:a70c2776169c212b57677ade43164c7a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4119e236a56fab0ea38266306082cbc0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStepMotor.html#a4119e236a56fab0ea38266306082cbc0">run</a> (unsigned long ticks_us)=0</td></tr>
+<tr class="memdesc:a4119e236a56fab0ea38266306082cbc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Needs to be called in main program loop as much as possible in order to get a reliable operation.  <a href="#a4119e236a56fab0ea38266306082cbc0">More...</a><br /></td></tr>
+<tr class="separator:a4119e236a56fab0ea38266306082cbc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f94c75403bfcd1ad43891fc5a04d2ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="StepMotor_8h.html#a4b9ffda5c5f815c6d79590b74c5dec23">StepDirection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStepMotor.html#a4f94c75403bfcd1ad43891fc5a04d2ca">getDirection</a> ()</td></tr>
 <tr class="separator:a4f94c75403bfcd1ad43891fc5a04d2ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c5186658e4da0d242d91196ee50c548"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStepMotor.html#a7c5186658e4da0d242d91196ee50c548">getRPM</a> ()</td></tr>
 <tr class="separator:a7c5186658e4da0d242d91196ee50c548"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a380d156ca3ee3a80dfbce625ad1a573a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStepMotor.html#a380d156ca3ee3a80dfbce625ad1a573a">isActive</a> ()</td></tr>
 <tr class="separator:a380d156ca3ee3a80dfbce625ad1a573a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a70c2776169c212b57677ade43164c7a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStepMotor.html#a70c2776169c212b57677ade43164c7a2">setRPM_t</a> ()</td></tr>
+<tr class="separator:a70c2776169c212b57677ade43164c7a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -174,8 +178,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a25ac4759649d9fa1998dd6c57bf9a3a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25ac4759649d9fa1998dd6c57bf9a3a6">&#9670;&nbsp;</a></span>run()</h2>
+<a id="a4119e236a56fab0ea38266306082cbc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4119e236a56fab0ea38266306082cbc0">&#9670;&nbsp;</a></span>run()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,7 +190,8 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">virtual void StepMotor::run </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">unsigned long&#160;</td>
+          <td class="paramname"><em>ticks_us</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -199,7 +204,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Needs to be called in main program loop as much as possible in order to get a reliable operation. </p>
 
-<p>Implemented in <a class="el" href="classAVR__StepMotor.html#a4d071f2cbcadef9f3cc46cd1dcc46f05">AVR_StepMotor</a>.</p>
+<p>Implemented in <a class="el" href="classAVR__StepMotor.html#ad4a093762897f702c40c8b967b56a99e">AVR_StepMotor</a>.</p>
 
 </div>
 </div>
@@ -292,6 +297,9 @@ Protected Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void StepMotor::setRPM_t </td>
@@ -300,6 +308,11 @@ Protected Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="StepMotor_8cpp_source.html#l00013">13</a> of file <a class="el" href="StepMotor_8cpp_source.html">StepMotor.cpp</a>.</p>
@@ -381,7 +394,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="StepMotor_8h_source.html#l00044">44</a> of file <a class="el" href="StepMotor_8h_source.html">StepMotor.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="StepMotor_8h_source.html#l00045">45</a> of file <a class="el" href="StepMotor_8h_source.html">StepMotor.h</a>.</p>
 
 </div>
 </div>
@@ -405,7 +418,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="StepMotor_8h_source.html#l00043">43</a> of file <a class="el" href="StepMotor_8h_source.html">StepMotor.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="StepMotor_8h_source.html#l00044">44</a> of file <a class="el" href="StepMotor_8h_source.html">StepMotor.h</a>.</p>
 
 </div>
 </div>
@@ -429,7 +442,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="StepMotor_8h_source.html#l00045">45</a> of file <a class="el" href="StepMotor_8h_source.html">StepMotor.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="StepMotor_8h_source.html#l00046">46</a> of file <a class="el" href="StepMotor_8h_source.html">StepMotor.h</a>.</p>
 
 </div>
 </div>
@@ -453,7 +466,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="StepMotor_8h_source.html#l00046">46</a> of file <a class="el" href="StepMotor_8h_source.html">StepMotor.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="StepMotor_8h_source.html#l00047">47</a> of file <a class="el" href="StepMotor_8h_source.html">StepMotor.h</a>.</p>
 
 </div>
 </div>
@@ -477,7 +490,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="StepMotor_8h_source.html#l00047">47</a> of file <a class="el" href="StepMotor_8h_source.html">StepMotor.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="StepMotor_8h_source.html#l00048">48</a> of file <a class="el" href="StepMotor_8h_source.html">StepMotor.h</a>.</p>
 
 </div>
 </div>

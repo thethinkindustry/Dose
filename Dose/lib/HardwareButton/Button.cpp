@@ -24,6 +24,8 @@ void Button::addReleaseTask(ButtonFunc f)
 void Button::setMode(ButtonMode m)
 {
     mode = m;
+    state = ButtonState::Released;
+    last_state = ButtonState::Pressed;
 }
 
 ButtonState Button::checkState()
@@ -47,7 +49,7 @@ void Button::update(uint8_t logic, unsigned long ticks)
         return;
     if(mode == ButtonMode::PullDown)
     {
-        if((logic == 1) && (state == ButtonState::Released))
+        if((logic == 1) && (state == ButtonState::Released) && (last_state == ButtonState::Pressed))
         {
 
             for(int i = 0; i< index_releaseTask; i++) {
@@ -56,34 +58,39 @@ void Button::update(uint8_t logic, unsigned long ticks)
                     
             }
             state = ButtonState::Pressed;
+            last_state = ButtonState::Released;
             last_ticks = ticks;
         }
 
-        else if((logic == 0) && (state == ButtonState::Pressed))
+        else if((logic == 0) && (state == ButtonState::Pressed) && (last_state == ButtonState::Released))
         {
             for(int i = 0; i< index_releaseTask; i++) {
                 if(releaseTasks[i] != nullptr)
                     (*releaseTasks[i])(nullptr);
             }
             state = ButtonState::Released;
+            last_state = ButtonState::Pressed;
             last_ticks = ticks;
         }
 
         else if((logic == 0) && (state == ButtonState::Released))
-        {
+        { 
+            /*
             for(int i = 0; i< index_pressTask; i++) {
                 if(releaseTasks[i] != nullptr)
                     (*releaseTasks[i])(nullptr);
             }
             state = ButtonState::Released;
+            last_state = ButtonState::Pressed;
             last_ticks = ticks;
+            */
         }
         
     }
 
     else
     {
-        if((logic == 0) && (state == ButtonState::Released))
+        if((logic == 0) && (state == ButtonState::Released) && (last_state == ButtonState::Pressed))
         {
             for(int i = 0; i< index_pressTask; i++) {
                 if(pressTasks[i] != nullptr)
@@ -91,27 +98,32 @@ void Button::update(uint8_t logic, unsigned long ticks)
                     
             }
             state = ButtonState::Pressed;
+            last_state = ButtonState::Released;
             last_ticks = ticks;
         }
 
-        else if((logic == 1) && (state == ButtonState::Pressed))
+        else if((logic == 1) && (state == ButtonState::Pressed) && (last_state == ButtonState::Released))
         {
             for(int i = 0; i< index_releaseTask; i++) {
                 if(releaseTasks[i] != nullptr)
                     (*releaseTasks[i])(nullptr);
             }
             state = ButtonState::Released;
+            last_state = ButtonState::Pressed;
             last_ticks = ticks;
         }
 
-        else if((logic == 1) && (state == ButtonState::Released))
+        else if((logic == 1) && (state == ButtonState::Released) && (last_state == ButtonState::Pressed))
         {
+            /*
             for(int i = 0; i< index_releaseTask; i++) {
                 if(releaseTasks[i] != nullptr)
                     (*releaseTasks[i])(nullptr);
             }
             state = ButtonState::Released;
+            last_state = ButtonState::Pressed;
             last_ticks = ticks;
+            */
         }
     }
     

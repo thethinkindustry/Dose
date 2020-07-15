@@ -8,7 +8,7 @@ StepMotorMock::StepMotorMock()
     active = false;
     direction = StepDirection::Left;
     rpm = 0;
-    pulse = 0;
+    steps = 0;
 }
 
 StepMotorMock::StepMotorMock(uint8_t enPin, uint8_t dirPin, uint8_t stepPin)
@@ -16,7 +16,7 @@ StepMotorMock::StepMotorMock(uint8_t enPin, uint8_t dirPin, uint8_t stepPin)
     active = false;
     direction = StepDirection::Left;
     rpm = 0;
-    pulse = 0;
+    steps = 0;
 }
 
 void StepMotorMock::setDirection(StepDirection dir)
@@ -34,14 +34,14 @@ void StepMotorMock::stop()
     active = false;
 }
 
-void StepMotorMock::run()
+void StepMotorMock::run(unsigned long ticks_us)
 {
-    active = true;
+    
 
 }
-void StepMotorMock::setPulse(int p)
+void StepMotorMock::setSteps(int p)
 {
-    this->pulse = p;
+    steps= p;
 }
 
 void StepMotorMock::start()

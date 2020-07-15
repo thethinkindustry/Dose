@@ -6,11 +6,13 @@ digraph "/home/koray/Documents/PlatformIO/Projects/Dose/Dose/lib" {
     graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_97aefd0d527b934f1d99a682da8fe6a9.html"];
     dir_97aefd0d527b934f1d99a682da8fe6a9 [shape=plaintext label="lib"];
     dir_7790737b37010f06583abd9728eefd35 [shape=box label="Chrono" color="black" fillcolor="white" style="filled" URL="dir_7790737b37010f06583abd9728eefd35.html"];
+    dir_5c3d1bfc8cd9469cdc2e448ff4067c34 [shape=box label="Doser" color="black" fillcolor="white" style="filled" URL="dir_5c3d1bfc8cd9469cdc2e448ff4067c34.html"];
     dir_db9d5dc6a843c2dbdbb6e54ba09d4007 [shape=box label="HardwareButton" color="black" fillcolor="white" style="filled" URL="dir_db9d5dc6a843c2dbdbb6e54ba09d4007.html"];
     dir_5fbf237877d3f18ddd53d9d6f6848b15 [shape=box label="Mocks" color="black" fillcolor="white" style="filled" URL="dir_5fbf237877d3f18ddd53d9d6f6848b15.html"];
     dir_daee5f165b59fdb1155de5a098cc1022 [shape=box label="PersistentStorage" color="black" fillcolor="white" style="filled" URL="dir_daee5f165b59fdb1155de5a098cc1022.html"];
     dir_1c136afa0f79c89ed15be5fcff3fa696 [shape=box label="StepMotor" color="black" fillcolor="white" style="filled" URL="dir_1c136afa0f79c89ed15be5fcff3fa696.html"];
   }
-  dir_5fbf237877d3f18ddd53d9d6f6848b15->dir_1c136afa0f79c89ed15be5fcff3fa696 [headlabel="1", labeldistance=1.5 headhref="dir_000004_000006.html"];
-  dir_5fbf237877d3f18ddd53d9d6f6848b15->dir_daee5f165b59fdb1155de5a098cc1022 [headlabel="1", labeldistance=1.5 headhref="dir_000004_000005.html"];
+  dir_5c3d1bfc8cd9469cdc2e448ff4067c34->dir_1c136afa0f79c89ed15be5fcff3fa696 [headlabel="1", labeldistance=1.5 headhref="dir_000003_000007.html"];
+  dir_5fbf237877d3f18ddd53d9d6f6848b15->dir_1c136afa0f79c89ed15be5fcff3fa696 [headlabel="1", labeldistance=1.5 headhref="dir_000005_000007.html"];
+  dir_5fbf237877d3f18ddd53d9d6f6848b15->dir_daee5f165b59fdb1155de5a098cc1022 [headlabel="1", labeldistance=1.5 headhref="dir_000005_000006.html"];
 }

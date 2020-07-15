@@ -8,6 +8,6 @@ digraph "/home/koray/Documents/PlatformIO/Projects/Dose/Dose/lib/Mocks" {
   }
   dir_1c136afa0f79c89ed15be5fcff3fa696 [shape=box label="StepMotor" URL="dir_1c136afa0f79c89ed15be5fcff3fa696.html"];
   dir_daee5f165b59fdb1155de5a098cc1022 [shape=box label="PersistentStorage" URL="dir_daee5f165b59fdb1155de5a098cc1022.html"];
-  dir_5fbf237877d3f18ddd53d9d6f6848b15->dir_1c136afa0f79c89ed15be5fcff3fa696 [headlabel="1", labeldistance=1.5 headhref="dir_000004_000006.html"];
-  dir_5fbf237877d3f18ddd53d9d6f6848b15->dir_daee5f165b59fdb1155de5a098cc1022 [headlabel="1", labeldistance=1.5 headhref="dir_000004_000005.html"];
+  dir_5fbf237877d3f18ddd53d9d6f6848b15->dir_1c136afa0f79c89ed15be5fcff3fa696 [headlabel="1", labeldistance=1.5 headhref="dir_000005_000007.html"];
+  dir_5fbf237877d3f18ddd53d9d6f6848b15->dir_daee5f165b59fdb1155de5a098cc1022 [headlabel="1", labeldistance=1.5 headhref="dir_000005_000006.html"];
 }

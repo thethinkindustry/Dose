@@ -4,6 +4,7 @@
 #include <EEPROMMock.h>
 #include <StepMotorMock.h>
 #include <DosingController.h>
+#include <CircularBuffer.h>
 
 
 int testvar = 0;
@@ -118,6 +119,23 @@ void test_button_debounce2()
 
 }
 
+void test_circular_buffer()
+{
+    CircularBuffer<uint8_t> buf(30);
+    
+    TEST_ASSERT_EQUAL(buf.capacity(), 30);
+    TEST_ASSERT_EQUAL(buf.isEmpty(), true);
+    TEST_ASSERT_EQUAL(buf.isFull(), false);
+    buf.put(1);
+    TEST_ASSERT_EQUAL(buf.isEmpty(), false);
+    auto val = buf.get();
+    TEST_ASSERT_EQUAL(val, 1);
+    TEST_ASSERT_EQUAL(buf.isEmpty(), true);
+    for(int i = 0; i< 60; i++) buf.put(i);
+    TEST_ASSERT_EQUAL(buf.isFull(), true);
+    
+}
+
 void test_dosing_controller()
 {
     StepMotorMock motor = StepMotorMock();
@@ -144,5 +162,6 @@ int main()
     RUN_TEST(test_button_debounce2);
     RUN_TEST(test_eeprom_write_read);
     RUN_TEST(test_dosing_controller);
+    RUN_TEST(test_circular_buffer);
     return UNITY_END();
 }

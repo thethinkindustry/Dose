@@ -7,7 +7,7 @@
 class StepMotorMock : public StepMotor
 {
     private:
-    void run();
+    void run(unsigned long ticks_us);
     public:
     StepMotorMock();
     StepMotorMock(uint8_t enPin, uint8_t dirPin, uint8_t stepPin);
@@ -16,7 +16,7 @@ class StepMotorMock : public StepMotor
     void start();
     
     void setDirection(StepDirection dir);
-    void setPulse(int p);
+    void setSteps(int p);
 };
 
 #endif
