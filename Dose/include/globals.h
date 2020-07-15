@@ -3,6 +3,8 @@
 #include <DosingController.h>
 #include <AVR_StepMotor.h>
 #include <AVR_Button.h>
+#include <CircularBuffer.h>
+#include <program.h>
 
 #define NOTHING_TO_DOSE -1
 
@@ -22,7 +24,7 @@ namespace state
     extern uint64_t total_steps_runned;
     extern uint64_t last_ticks_us;
     extern void (*operation)(void*);
-    extern char txtBuf[];
+    extern CircularBuffer<uint8_t> txtBuf;
 }
 
 

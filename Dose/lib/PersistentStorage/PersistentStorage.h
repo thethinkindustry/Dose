@@ -7,6 +7,7 @@ class PersistentStorage
 {
     protected:
     uint32_t size;
+    uint8_t granularity = sizeof(uint8_t);
 
 
     public:

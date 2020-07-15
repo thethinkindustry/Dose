@@ -19,7 +19,7 @@ typedef AVR_StepMotor StepMotorBase;
 AVR_StepMotor motor = AVR_StepMotor(PUL_PIN,DIR_PIN, EN_PIN);
 AVR_Button pedal = AVR_Button(7);
 DosingController doser = DosingController(&motor);
-EEPROMController eeprom = EEPROMController(1024);
+//EEPROMController eeprom = EEPROMController(1024);
 ButtonFunc pedal_callback = default_pedal_callback;
 ButtonFunc pedal_release_callback = default_pedal_release_callback;
 
@@ -51,7 +51,7 @@ void setup()
   pedal_callback = ftest;
   pedal_release_callback = ftest_release;
   doser = DosingController(&motor);
-  doser.configure(DosingConfiguration::createDefault());
+  doser.configure(DosingConfiguration());
 
   pinMode(LED_BUILTIN, OUTPUT);
   pedal.setMode(ButtonMode::PullDown);
@@ -63,12 +63,15 @@ void setup()
   motor.setRPM(100);
   motor.stop();
   motor.start();
+
 }
 
 void loop()
 {
 
 
+  if(!state::txtBuf.isEmpty())
+    Serial.println(state::txtBuf.get());
 
   AVR_Button::updateButtons(millis());
   doser.run(micros());

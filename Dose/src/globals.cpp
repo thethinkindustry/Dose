@@ -9,7 +9,7 @@ namespace state
     bool callibrating_by_time = false;
     bool dosing_manual = true;
     void (*operation)(void*) = default_operation;
-    char txtBuf[50] = {0};
+    CircularBuffer<uint8_t> txtBuf = CircularBuffer<uint8_t>(UINT32_C(100));
 }
 
 

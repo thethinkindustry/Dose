@@ -22,15 +22,14 @@ class DosingConfiguration
 {
 
     public:
+    uint8_t id;
     int volumePerSec;
     int stepPerUnit;
     int motor_steps;
     int motor_rpm;
     uint64_t work_time;
     uint64_t steps_to_run;
-    DosingConfiguration();
-    void setSpeed(int vol);
-    static DosingConfiguration createDefault();
+    //DosingConfiguration();
 
 
 };

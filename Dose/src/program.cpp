@@ -1,6 +1,7 @@
 #include <ITEADLIB_Arduino_Nextion/Nextion.h>
 #include <globals.h>
 #include <program.h>
+#include <string.h>
 void init_buttons()
 {
 
@@ -9,9 +10,8 @@ void select_config(void* ptr)
 {
     //TODO- get configs from eeprom
     //TODO- write configs to screen
-    NexText txt(0,0,"txt1");
 
-    txt.setText(state::txtBuf);
+
     
 }
 
@@ -54,7 +54,7 @@ void callibrate_by_time(void* d)
 void pedal_callibrate_by_time(void* d)
 {
 
-
+    
 }
 
 void end_callibration()
@@ -90,6 +90,10 @@ void automatic_dosing_pedal_callback(void*)
     {
         set_pedal_callbacks_todefault();
     }
+
+    static char buf[10];
+    itoa(state::remaining_to_dose+1, buf,3);
+    //TODO- update the textbox
     
 }
 

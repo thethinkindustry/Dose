@@ -80,10 +80,29 @@ void test_eeprom_write_read()
     eeprom.read((uint8_t*)received, address, sizeof(mydata));
 
     TEST_ASSERT_EQUAL_CHAR_ARRAY(received, mydata, sizeof(mydata));
+}
 
+void test_eeprom_save_restore_config()
+{
+    EEPROMMock eep(1024);
+    DosingConfiguration cfg = DosingConfiguration();
+    cfg.id = 1;
+    cfg.motor_rpm = 400;
+    cfg.motor_steps = 1600;
+    cfg.steps_to_run = 12000;
+    eep.save_configuration(cfg);
+
+    DosingConfiguration cfg_received = DosingConfiguration();
+    eep.get_configuration(&cfg_received, 1);
+
+    TEST_ASSERT_EQUAL(cfg.id, cfg_received.id);
+    TEST_ASSERT_EQUAL(cfg.motor_rpm, cfg_received.motor_rpm);
+    TEST_ASSERT_EQUAL(cfg.motor_steps, cfg_received.motor_steps);
+    TEST_ASSERT_EQUAL(cfg.steps_to_run, cfg_received.steps_to_run);
 
 
 }
+
 
 void test_button_debounce()
 {
@@ -140,7 +159,6 @@ void test_dosing_controller()
 {
     StepMotorMock motor = StepMotorMock();
     DosingConfiguration cfg;
-    cfg.setSpeed(200);
     DosingController doser(&motor);
     doser.configure(cfg);
     doser.dose();
@@ -161,6 +179,7 @@ int main()
     RUN_TEST(test_button_debounce);
     RUN_TEST(test_button_debounce2);
     RUN_TEST(test_eeprom_write_read);
+    RUN_TEST(test_eeprom_save_restore_config);
     RUN_TEST(test_dosing_controller);
     RUN_TEST(test_circular_buffer);
     return UNITY_END();
