@@ -8,7 +8,7 @@ namespace state
     int remaining_to_dose = 0;
     bool callibrating_by_time = false;
     bool dosing_manual = true;
-    void (*operation)(void*) = default_operation;
+    void (*operation)(void*);
     CircularBuffer<uint8_t> txtBuf = CircularBuffer<uint8_t>(UINT32_C(100));
 }
 

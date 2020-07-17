@@ -1,5 +1,12 @@
 #include <DosingController.h>
 
+DosingConfiguration::DosingConfiguration()
+:id{0}, volumePerSec{0}, stepPerUnit{0}, motor_steps{0},
+work_time{0}, steps_to_run{0}, checksum{0}
+{
+
+}
+
 DosingController::DosingController()
 :motor{nullptr}, dosing{false}
 {

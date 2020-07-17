@@ -11,8 +11,13 @@
 namespace eeprom
 {
     constexpr uint16_t first_save_address = 4;
-
     constexpr uint32_t max_configs = 10;
+
+    template<typename type>
+    uint16_t get_save_address(int id)
+    {
+        return first_save_address + sizeof(type)*id;
+    }
 
 }
 
@@ -21,6 +26,9 @@ class EEPROMController : public PersistentStorage
 {
     private:
     EEPROMController();
+    bool checkIntegrity(DosingConfiguration* cfg);
+    uint8_t calculateChecksum(DosingConfiguration* cfg);
+    void restoreConfig(uint8_t id);
 
     public:
     EEPROMController(uint32_t size);

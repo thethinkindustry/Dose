@@ -5,7 +5,6 @@
 #include <DosingController.h>
 #include <EEPROMController.h>
 typedef AVR_StepMotor StepMotorBase;
-
 #endif
 
 #include <globals.h>
@@ -55,27 +54,20 @@ void setup()
 
   pinMode(LED_BUILTIN, OUTPUT);
   pedal.setMode(ButtonMode::PullDown);
-  pedal.setDebounceDeadtime(500);
+  pedal.setDebounceDeadtime(100);
   pedal.addPressTask(pedal_callback);
   pedal.addReleaseTask(pedal_release_callback);
 
   Serial.begin(9600);
   motor.setRPM(100);
   motor.stop();
-  motor.start();
-
 }
 
 void loop()
 {
 
-
-  if(!state::txtBuf.isEmpty())
-    Serial.println(state::txtBuf.get());
-
   AVR_Button::updateButtons(millis());
   doser.run(micros());
-  //auto state = pedal.checkState();
   (*state::operation)(nullptr);
 
 }
