@@ -68,7 +68,7 @@ void loop()
 
   AVR_Button::updateButtons(millis());
   doser.run(micros());
-  (*state::operation)(nullptr);
+  state::operation(nullptr);
 
 }
 

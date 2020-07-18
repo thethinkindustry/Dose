@@ -2,7 +2,7 @@
 #include <globals.h>
 #include <program.h>
 #include <string.h>
-void init_buttons()
+void init_nextion_buttons()
 {
 
 }
@@ -30,12 +30,13 @@ void callibrate_by_time_callback(void* ptr)
 
 void save_config_callback(void* ptr)
 {
+    //TODO - set cfgOnEdit id based on config button
     save_current_config();
 }
 
 void save_current_config(void)
 {
-
+    eeprm.save_configuration(cfgOnEdit);
 }
 
 void save_config_on_edit(void)
@@ -79,22 +80,22 @@ void default_pedal_callback(void*)
 
 void automatic_dosing_pedal_callback(void*)
 {
-    if(!(state::remaining_to_dose == NOTHING_TO_DOSE))
+    if(!(state::remaining_to_dose == NOTHING_TO_DOSE) && !doser.isDosing())
     {
         doser.dose();
         state::remaining_to_dose--;
     }
     //TODO- update the textbox with remaining_to_dose + 1
 
-    else
-    {
-        set_pedal_callbacks_todefault();
-    }
-
     static char buf[10];
     itoa(state::remaining_to_dose+1, buf,3);
     //TODO- update the textbox
     
+}
+
+void automatic_dosing_at_exit(void* ptr)
+{
+    set_pedal_callbacks_todefault();
 }
 
 void default_pedal_release_callback(void*)
@@ -109,15 +110,16 @@ void set_pedal_callbacks_todefault(void)
     pedal_release_callback = default_pedal_release_callback;
 }
 
-void default_operation(void* ptr)
-{
-
-}
-
 void automatic_dosing_callback(void* ptr)
 {
     //TODO- get how many times to dose from textbox - 1
     state::remaining_to_dose = 0;
     state::dosing_manual = false;
-    
+    doser.setMode(DosingMode::Auto);
+    pedal_callback = automatic_dosing_pedal_callback;
+}
+
+void default_operation(void* ptr)
+{
+
 }

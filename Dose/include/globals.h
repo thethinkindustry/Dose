@@ -3,6 +3,7 @@
 #include <DosingController.h>
 #include <AVR_StepMotor.h>
 #include <AVR_Button.h>
+#include <EEPROMController.h>
 #include <CircularBuffer.h>
 #include <program.h>
 
@@ -14,6 +15,7 @@ extern AVR_StepMotor motor;
 extern DosingController doser;
 extern AVR_Button pedal;
 extern DosingConfiguration cfgOnEdit;
+extern EEPROMController eeprm;
 
 namespace state
 {

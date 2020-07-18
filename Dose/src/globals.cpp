@@ -1,5 +1,8 @@
 #include <globals.h>
 
+
+EEPROMController eeprm = EEPROMController(1024);
+
 namespace state
 {
     uint64_t last_total_steps = 0;
