@@ -205,8 +205,7 @@ void btn_pipe_filling2_POP_callback(void* ptr)
 {
  
 }   
- 
-}  
+  
 void btn_start_auto_filling_POP_callback(void* ptr)  
 {
  
