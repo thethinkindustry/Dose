@@ -1,7 +1,7 @@
 #include <DosingController.h>
 
 DosingConfiguration::DosingConfiguration()
-:id{0}, volumePerSec{0}, stepPerUnit{0}, motor_steps{0},
+:id{0}, volume{0}, pipe_radius{0}, volumePerSec{0}, stepPerUnit{0}, motor_steps{0},
 work_time{0}, steps_to_run{0}, checksum{0}
 {
 
@@ -75,6 +75,7 @@ void DosingController::stop(void)
 void DosingController::run(unsigned long ticks)
 {
     motor->run(ticks);
+    //if(mode == DosingMode::Auto && (motor->getTotalSteps() - last_steps_runned >= config.steps_to_run))
     if(mode == DosingMode::Auto && (motor->getTotalSteps() - last_steps_runned >= config.steps_to_run))
     {
         stop();

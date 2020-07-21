@@ -1,7 +1,29 @@
-#include <ITEADLIB_Arduino_Nextion/Nextion.h>
+#include <Nextion.h>
 #include <globals.h>
 #include <program.h>
 #include <string.h>
+
+void nextion_callback_setup(void){
+ btn_calib1.attachPush(btn_calib1_POP_callback);
+ btn_calib2.attachPush(btn_calib2_POP_callback);
+ btn_calib3.attachPush(btn_calib3_POP_callback);
+ btn_calib4.attachPush(btn_calib4_POP_callback);
+ btn_calib5.attachPush(btn_calib5_POP_callback);
+ 
+ btn_pipe_filling.attachPush(btn_pipe_filling_POP_callback);
+ btn_start_pedal_filling.attachPush(btn_start_pedal_filling_POP_callback);
+
+ btn_pipe_filling2.attachPush(btn_pipe_filling2_POP_callback);
+ btn_auto_filling_config.attachPush(btn_auto_filling_config_POP_callback);
+
+ btn_start_auto_filling.attachPush(btn_start_auto_filling_POP_callback);
+
+ btn_stop_auto_filling.attachPush(btn_stop_auto_filling_POP_callback);
+
+ btn_stop_pedal.attachPush(btn_stop_pedal_POP_callback);
+
+}
+
 void init_nextion_buttons()
 {
 
@@ -60,6 +82,10 @@ void pedal_callibrate_by_time(void* d)
 
 void end_callibration()
 {
+    //TODO- get volume from textbox
+    cfgOnEdit.volume = 0;
+    //TODO- get radius from textbox
+    cfgOnEdit.pipe_radius = 0;
     cfgOnEdit.motor_steps = motor.getSteps();
     cfgOnEdit.motor_rpm = motor.getRPM();
     cfgOnEdit.work_time = 0;
@@ -119,7 +145,77 @@ void automatic_dosing_callback(void* ptr)
     pedal_callback = automatic_dosing_pedal_callback;
 }
 
+
+
+
 void default_operation(void* ptr)
 {
 
+}
+
+
+
+// NEXTION BUTTON CALLBACKS
+
+void btn_calib1_POP_callback(void* ptr)  
+{
+    eeprm.get_configuration(&cfgOnEdit, 1);
+    cfgOnEdit.id = 1;
+    callibrate_by_time_callback(nullptr);
+}
+void btn_calib2_POP_callback(void* ptr)  
+{
+    eeprm.get_configuration(&cfgOnEdit, 2);
+    cfgOnEdit.id = 2;
+    callibrate_by_time_callback(nullptr);
+}  
+void btn_calib3_POP_callback(void* ptr)  
+{
+    eeprm.get_configuration(&cfgOnEdit, 3);
+    cfgOnEdit.id = 3;
+    callibrate_by_time_callback(nullptr);
+}  
+void btn_calib4_POP_callback(void* ptr)  
+{
+    eeprm.get_configuration(&cfgOnEdit, 4);
+    cfgOnEdit.id = 4;
+    callibrate_by_time_callback(nullptr);
+}  
+void btn_calib5_POP_callback(void* ptr)  
+{
+    eeprm.get_configuration(&cfgOnEdit, 5);
+    cfgOnEdit.id = 5;
+    callibrate_by_time_callback(nullptr);
+}
+//TODO - 
+void save_calib_callback(void* ptr)
+{
+    end_callibration();
+}
+
+void btn_pipe_filling_POP_callback(void* ptr)  
+{
+ 
+}
+void btn_start_pedal_filling_POP_callback(void* ptr)  
+{
+ 
+}
+void btn_pipe_filling2_POP_callback(void* ptr)  
+{
+ 
+}   
+ 
+}  
+void btn_start_auto_filling_POP_callback(void* ptr)  
+{
+ 
+} 
+void btn_stop_auto_filling_POP_callback(void* ptr)  
+{
+ 
+}
+void btn_stop_pedal_POP_callback(void* ptr)  
+{
+ 
 }

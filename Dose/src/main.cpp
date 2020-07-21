@@ -9,7 +9,7 @@ typedef AVR_StepMotor StepMotorBase;
 
 #include <globals.h>
 #include <program.h>
-#include <ITEADLIB_Arduino_Nextion/Nextion.h>
+#include <Nextion.h>
 
 #define PUL_PIN 11
 #define DIR_PIN 12
@@ -61,6 +61,9 @@ void setup()
   Serial.begin(9600);
   motor.setRPM(100);
   motor.stop();
+  nextion_callback_setup();
+  nexInit();
+
 }
 
 void loop()
@@ -69,6 +72,7 @@ void loop()
   AVR_Button::updateButtons(millis());
   doser.run(micros());
   state::operation(nullptr);
+  nexLoop(nex_listen_list);
 
 }
 

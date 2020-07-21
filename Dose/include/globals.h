@@ -6,7 +6,11 @@
 #include <EEPROMController.h>
 #include <CircularBuffer.h>
 #include <program.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SoftwareSerial.h>
 
+#define nexSerial Serial1
 #define NOTHING_TO_DOSE -1
 
 
@@ -36,9 +40,27 @@ extern ButtonFunc pedal_callback;
 extern ButtonFunc pedal_release_callback;
 
 
+
 //************************************
 // NEXTION BUTTONS //
+extern NexButton btn_calib1;
+extern NexButton btn_calib2;
+extern NexButton btn_calib3;
+extern NexButton btn_calib4;
+extern NexButton btn_calib5;
+
+//PAGE_PIPE
+extern NexButton btn_pipe_filling;
+extern NexButton btn_start_pedal_filling;
+
+//PAGE_PIPE_2
+extern NexButton btn_pipe_filling2;
+extern NexButton btn_auto_filling_config;
+
+extern NexButton btn_start_auto_filling;
+extern NexButton btn_stop_auto_filling;
+extern NexButton btn_stop_pedal;
 
 
-
+extern NexTouch* nex_listen_list[];
 #endif

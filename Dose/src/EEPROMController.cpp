@@ -74,5 +74,5 @@ bool EEPROMController::checkIntegrity(DosingConfiguration* cfg)
 {
     auto chksum = cfg->checksum;
     auto sum = calculateChecksum(cfg);
-    return sum == chksum ? 1 : 0;
+    return sum == chksum ? true : false;
 }
