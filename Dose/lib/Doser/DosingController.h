@@ -21,7 +21,7 @@ enum DosingMode
 struct DosingConfiguration
 {
     uint8_t id;
-    uint8_t pipe_radius;
+    uint32_t pipe_radius;
     uint16_t volume;
     uint16_t volumePerSec;
     uint32_t stepPerUnit;
@@ -64,7 +64,7 @@ class DosingController
      * 
      * @param ticks 
      */
-    void run(unsigned long ticks);
+    void run(uint64_t ticks);
 
 
 

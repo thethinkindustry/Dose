@@ -25,7 +25,7 @@ class AVR_StepMotor: public StepMotor
     void setSteps(int s);
     void setRPM(int rpm);
     void set(StepDirection _dir, uint8_t _rpm, uint16_t _steps);
-    void run(unsigned long ticks_us);
+    void run(uint64_t ticks_us);
 };
 
 #endif

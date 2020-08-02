@@ -168,6 +168,44 @@ void test_dosing_controller()
 }
 
 
+void test_doser_auto()
+{
+    auto motor = StepMotorMock(0,0,0);
+    DosingController doser(&motor);
+    DosingConfiguration cfg = DosingConfiguration();
+    cfg.motor_rpm = 200;
+    cfg.motor_steps = 1600;
+    cfg.steps_to_run = 3200;
+
+    doser.configure(cfg);
+    doser.setMode(DosingMode::Auto);
+    TEST_ASSERT_EQUAL(doser.isDosing(), false);
+
+    doser.dose();
+    TEST_ASSERT_EQUAL(doser.isDosing(), true);
+    for(int i = 0; i<9000;i++) {
+        doser.run(i);    
+    }
+
+    TEST_ASSERT_EQUAL(false, doser.isDosing());
+
+
+    doser.dose();
+    TEST_ASSERT_EQUAL(true, doser.isDosing());
+    for(int i = 9000; i< 9050; i++) 
+    {
+      doser.run(i);
+    }
+
+    TEST_ASSERT_EQUAL(true, doser.isDosing());
+    for(int i = 9050; i< 15000; i++)
+    {
+        doser.run(i);
+    }
+
+    TEST_ASSERT_EQUAL(false, doser.isDosing());
+}
+
 
 int main()
 {
@@ -182,5 +220,6 @@ int main()
     RUN_TEST(test_eeprom_save_restore_config);
     RUN_TEST(test_dosing_controller);
     RUN_TEST(test_circular_buffer);
+    RUN_TEST(test_doser_auto);
     return UNITY_END();
 }

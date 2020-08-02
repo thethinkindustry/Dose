@@ -109,7 +109,7 @@ void test_dosing_controller_auto()
     DosingConfiguration cfg;
     cfg.id = 1;
     cfg.motor_rpm = 100;
-    cfg.motor_steps = 1800;
+    cfg.motor_steps = 1600;
     cfg.steps_to_run = 5;
     controller.configure(cfg);
     controller.setMode(DosingMode::Auto);
@@ -126,6 +126,45 @@ void test_dosing_controller_auto()
     
 }
 
+
+void test_doser_auto()
+{
+    auto motor = AVR_StepMotor(0,0,0);
+    DosingController doser1(&motor);
+    DosingConfiguration cfg = DosingConfiguration();
+    cfg.motor_rpm = 200;
+    cfg.motor_steps = 1600;
+    cfg.steps_to_run = 3200;
+
+    doser1.configure(cfg);
+    doser1.setMode(DosingMode::Auto);
+    TEST_ASSERT_EQUAL(doser1.isDosing(), false);
+
+    doser1.dose();
+    TEST_ASSERT_EQUAL(doser1.isDosing(), true);
+    for(int i = 0; i<9000;i++) {
+        doser1.run(i);    
+    }
+    TEST_ASSERT_EQUAL(false, doser1.isDosing());
+
+    doser1.dose();
+    TEST_ASSERT_EQUAL(true, doser1.isDosing());
+    for(int i = 9000; i< 9050; i++) 
+    {
+      doser1.run(i);
+    }
+
+    TEST_ASSERT_EQUAL(true, doser1.isDosing());
+    for(int i = 9050; i< 15000; i++)
+    {
+        doser1.run(i);
+    }
+
+    TEST_ASSERT_EQUAL(false, doser1.isDosing());
+
+}
+
+
 int main()
 {
     UNITY_BEGIN();
@@ -135,6 +174,7 @@ int main()
     RUN_TEST(test_dosing_controller_manual);
     RUN_TEST(test_dosing_controller_auto);
     RUN_TEST(test_eeprom_restore_config);  // CALL AFTER OTHER EEPROM TESTS
+    RUN_TEST(test_doser_auto);
 
     return UNITY_END();
 }

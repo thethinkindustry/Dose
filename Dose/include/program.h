@@ -7,6 +7,7 @@
 
 void nextion_callback_setup(void);
 
+void callibrate_by_time_callback(void* ptr);
 void callibrate_by_time(void*);
 void pedal_callibrate_by_time(void*);
 void end_callibration(void*);
@@ -15,7 +16,7 @@ void settings_setRPM_callback(void* ptr);
 void save_current_config(void);
 void save_config_on_edit(void);
 void set_pedal_callbacks_todefault(void);
-void default_operation(void*);
+void default_operation(void);
 void default_pedal_callback(void*);
 void default_pedal_release_callback(void*);
 void automatic_dosing_callback(void*);
@@ -33,6 +34,13 @@ void btn_calib3_POP_callback(void* ptr);
 void btn_calib4_POP_callback(void* ptr); 
   
 void btn_calib5_POP_callback(void* ptr);
+
+void chk1_callback(void* ptr);
+void chk2_callback(void* ptr);
+void chk3_callback(void* ptr);
+void chk4_callback(void* ptr);
+void chk5_callback(void* ptr);
+
 
 void btn_pipe_filling_POP_callback(void* ptr);
 

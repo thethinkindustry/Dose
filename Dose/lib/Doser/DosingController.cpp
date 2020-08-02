@@ -1,4 +1,5 @@
 #include <DosingController.h>
+#include <Arduino.h>
 
 DosingConfiguration::DosingConfiguration()
 :id{0}, volume{0}, pipe_radius{0}, volumePerSec{0}, stepPerUnit{0}, motor_steps{0},
@@ -16,7 +17,7 @@ DosingController::DosingController()
 DosingController::DosingController(StepMotor* motor)
 :motor{motor}, dosing{false}, mode{DosingMode::Manual}
 {
-
+    last_steps_runned = motor->getTotalSteps();
 }
 
 void DosingController::configure(DosingConfiguration cfg)
@@ -43,11 +44,12 @@ bool DosingController::isDosing()
 void DosingController::setMode(DosingMode m)
 {
     mode = m;
+    last_steps_runned = motor->getTotalSteps();
 }
 
 void DosingController::dose()
 {
-    if(motor == nullptr || dosing) return;
+    //if(motor == nullptr || dosing == true) return;
     dosing = true;
     motor->start();
 
@@ -68,17 +70,39 @@ void DosingController::setRPM(int rpm)
 
 void DosingController::stop(void)
 {
-    motor->stop();
     dosing = false;
+    motor->stop();
+    last_steps_runned = motor->getTotalSteps();
+    
 }
 
-void DosingController::run(unsigned long ticks)
+void DosingController::run(uint64_t ticks)
 {
-    motor->run(ticks);
+    //motor->run(ticks);
     //if(mode == DosingMode::Auto && (motor->getTotalSteps() - last_steps_runned >= config.steps_to_run))
-    if(mode == DosingMode::Auto && (motor->getTotalSteps() - last_steps_runned >= config.steps_to_run))
+    //static auto motor_total_steps = motor->getTotalSteps();
+    
+    if(mode == DosingMode::Auto) 
+    {
+        if((motor->getTotalSteps() - last_steps_runned) >= config.steps_to_run)
+        {
+            stop();
+            Serial.println("stopped");
+            
+        }
+        else
+        {
+            motor->run(ticks);
+        }
+        
+    }
+    /*
+    if(mode == DosingMode::Auto && ((motor_total_steps - last_steps_runned) >= config.steps_to_run))
     {
         stop();
+        last_steps_runned = motor_total_steps;
     }
+    */
+    
 }
 

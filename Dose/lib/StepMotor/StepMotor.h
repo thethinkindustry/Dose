@@ -35,7 +35,7 @@ class StepMotor
      * order to get a reliable operation.
      * 
      */
-    virtual void  run(unsigned long ticks_us) = 0;
+    virtual void  run(uint64_t ticks_us) = 0;
     uint64_t getTotalSteps();
 
     StepDirection getDirection();

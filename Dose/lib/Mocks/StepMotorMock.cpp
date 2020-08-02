@@ -15,8 +15,9 @@ StepMotorMock::StepMotorMock(uint8_t enPin, uint8_t dirPin, uint8_t stepPin)
 {
     active = false;
     direction = StepDirection::Left;
-    rpm = 0;
-    steps = 0;
+    rpm = 200;
+    steps = 1600;
+    total_steps = 0;
 }
 
 void StepMotorMock::setDirection(StepDirection dir)
@@ -37,8 +38,10 @@ void StepMotorMock::stop()
 void StepMotorMock::run(unsigned long ticks_us)
 {
     
+    total_steps++;
 
 }
+
 void StepMotorMock::setSteps(int p)
 {
     steps= p;

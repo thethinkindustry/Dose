@@ -4,6 +4,7 @@
 #include <AVR_Button.h>
 #include <DosingController.h>
 #include <EEPROMController.h>
+#include <mwc_stepper.h>
 typedef AVR_StepMotor StepMotorBase;
 #endif
 
@@ -11,31 +12,29 @@ typedef AVR_StepMotor StepMotorBase;
 #include <program.h>
 #include <Nextion.h>
 
-#define PUL_PIN 11
-#define DIR_PIN 12
-#define EN_PIN 13 
-
-AVR_StepMotor motor = AVR_StepMotor(PUL_PIN,DIR_PIN, EN_PIN);
-AVR_Button pedal = AVR_Button(7);
-DosingController doser = DosingController(&motor);
 //EEPROMController eeprom = EEPROMController(1024);
 ButtonFunc pedal_callback = default_pedal_callback;
 ButtonFunc pedal_release_callback = default_pedal_release_callback;
+//MWCSTEPPER mwc = MWCSTEPPER(EN_PIN, DIR_PIN, PUL_PIN);
+
 
 void ftest(void* data)
 {
-  
-  Serial.println("button");
+  /*
   if(!motor.isActive())
   {
     motor.start();
-    digitalWrite(LED_BUILTIN, HIGH);
   }
+
   else
   {
-    digitalWrite(LED_BUILTIN, LOW);
-    motor.stop();
+    {
+      motor.stop();
+    }
   }
+  */
+  doser.dose();
+  Serial.println("dosing");
 
 }
 
@@ -50,19 +49,34 @@ void setup()
   pedal_callback = ftest;
   pedal_release_callback = ftest_release;
   doser = DosingController(&motor);
-  doser.configure(DosingConfiguration());
+  auto test_cfg = DosingConfiguration();
+  test_cfg.motor_rpm = 400;
+  test_cfg.motor_steps = 1600;
+  test_cfg.steps_to_run = 3200;
+  doser.configure(test_cfg);
+  doser.setMode(DosingMode::Auto);
 
   pinMode(LED_BUILTIN, OUTPUT);
   pedal.setMode(ButtonMode::PullDown);
   pedal.setDebounceDeadtime(100);
-  pedal.addPressTask(pedal_callback);
+  pedal.addPressTask(ftest);
+  //pedal.addPressTask(pedal_callback);
   pedal.addReleaseTask(pedal_release_callback);
 
   Serial.begin(9600);
-  motor.setRPM(100);
+
+/*
+
+      motor.setDirection(StepDirection::Left);
+  motor.setRPM(200);
+  motor.setSteps(1600);
   motor.stop();
-  nextion_callback_setup();
-  nexInit();
+*/
+  //nextion_callback_setup();
+  //nexInit();
+  //mwc.init();
+  //mwc.set(0, 200, 1600);
+
 
 }
 
@@ -70,9 +84,15 @@ void loop()
 {
 
   AVR_Button::updateButtons(millis());
+  //mwc.run();
   doser.run(micros());
-  state::operation(nullptr);
-  nexLoop(nex_listen_list);
+  //motor.run(micros());
+  if(state::operation != nullptr)
+  {
+    state::operation();
+  }
+
+  //nexLoop(nex_listen_list);
 
 }
 
