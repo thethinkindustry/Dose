@@ -14,11 +14,12 @@
  */
 #include "NexObject.h"
 
-NexObject::NexObject(uint8_t pid, uint8_t cid, const char *name)
+NexObject::NexObject(uint8_t pid, uint8_t cid, const char *name, const char* page_name = nullptr)
 {
     this->__pid = pid;
     this->__cid = cid;
     this->__name = name;
+    this->__page_name = page_name;
 }
 
 uint8_t NexObject::getObjPid(void)
@@ -36,6 +37,10 @@ const char* NexObject::getObjName(void)
     return __name;
 }
 
+const char* NexObject::getObjPageName(void)
+{
+    return __page_name;
+}
 void NexObject::printObjInfo(void)
 {
     dbSerialPrint("[");

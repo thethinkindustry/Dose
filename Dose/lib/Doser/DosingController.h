@@ -20,16 +20,13 @@ enum DosingMode
 
 struct DosingConfiguration
 {
-    uint8_t id;
-    uint32_t pipe_radius;
-    uint16_t volume;
-    uint16_t volumePerSec;
-    uint32_t stepPerUnit;
-    uint16_t motor_steps;
-    uint16_t motor_rpm;
-    uint64_t work_time;
-    uint64_t steps_to_run;
-    uint8_t checksum;
+    uint8_t id = 0;
+    uint32_t pipe_radius = 0;
+    uint16_t volume  = 0;
+    uint16_t motor_steps = 0;
+    uint16_t motor_rpm = 300;
+    uint64_t steps_to_run = 1600;
+    uint8_t checksum = 0;
 
     DosingConfiguration();
 };

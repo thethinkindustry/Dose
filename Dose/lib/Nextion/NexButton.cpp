@@ -15,8 +15,8 @@
 
 #include "NexButton.h"
 
-NexButton::NexButton(uint8_t pid, uint8_t cid, const char *name)
-    :NexTouch(pid, cid, name)
+NexButton::NexButton(uint8_t pid, uint8_t cid, const char *name, const char *page_name = nullptr)
+    :NexTouch(pid, cid, name, page_name)
 {
 }
 
@@ -24,6 +24,11 @@ uint16_t NexButton::getText(char *buffer, uint16_t len)
 {
     String cmd;
     cmd += "get ";
+    if(getObjPageName())
+    {
+        cmd += getObjPageName();
+        cmd += '.';
+    }
     cmd += getObjName();
     cmd += ".txt";
     sendCommand(cmd.c_str());
@@ -33,6 +38,11 @@ uint16_t NexButton::getText(char *buffer, uint16_t len)
 bool NexButton::setText(const char *buffer)
 {
     String cmd;
+    if(getObjPageName())
+    {
+        cmd += getObjPageName();
+        cmd += '.';
+    }
     cmd += getObjName();
     cmd += ".txt=\"";
     cmd += buffer;

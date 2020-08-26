@@ -10,13 +10,13 @@
 
 namespace eeprom
 {
-    constexpr uint16_t first_save_address = 4;
+    constexpr uint16_t first_save_address = 3;
     constexpr uint32_t max_configs = 10;
 
     template<typename type>
     uint16_t get_save_address(int id)
     {
-        return first_save_address + sizeof(type)*id;
+        return first_save_address + sizeof(type)*(uint32_t)id;
     }
 
 }

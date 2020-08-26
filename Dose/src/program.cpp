@@ -1,308 +1,444 @@
-#include <Nextion.h>
+
 #include <globals.h>
 #include <program.h>
 #include <string.h>
 
 void nextion_callback_setup(void){
- btn_calib1.attachPush(btn_calib1_POP_callback);
- btn_calib2.attachPush(btn_calib2_POP_callback);
- btn_calib3.attachPush(btn_calib3_POP_callback);
- btn_calib4.attachPush(btn_calib4_POP_callback);
- btn_calib5.attachPush(btn_calib5_POP_callback);
+    pedal_filling_btn.attachPush(pedal_filling_callback);
+    //auto_filling_btn.attachPush(auto_filling_callback);
+    calib1_btn.attachPush(calib1_btn_callback);
+    calib2_btn.attachPush(calib2_btn_callback);
+    calib3_btn.attachPush(calib3_btn_callback);
+    calib4_btn.attachPush(calib4_btn_callback);
+    calib5_btn.attachPush(calib5_btn_callback);
+    chk1.attachPush(chk1_callback);
+    chk2.attachPush(chk2_callback);
+    chk3.attachPush(chk3_callback);
+    chk4.attachPush(chk4_callback);
+    chk5.attachPush(chk5_callback);
+    calib_continue_btn.attachPush(calib_continue_callback);
+    //calib_radius_txt.attachPop(calib_radius_callback);
+    //calib_volume_txt.attachPop(calib_volume_callback);
+    calib_complete_btn.attachPush(calib_complete_callback);
+    end_fill_btn.attachPush(end_fill_callback);
+    //left_to_fill_txt.attachPop(left_to_fill_callback);
 
- chk1.attachPop(chk1_callback);
- chk2.attachPop(chk1_callback);
- chk3.attachPop(chk1_callback);
- chk4.attachPop(chk1_callback);
- chk5.attachPop(chk1_callback);
- 
- btn_calib_save.attachPush(end_callibration);
- btn_clb_fill_pipe.attachPush(btn_pipe_filling2_POP_callback);
- btn_clb_start_fill.attachPop(callibrate_by_time_callback);
-
- //btn_numpad_ok.attachPush(btn_numpad_ok_callback);
- 
- btn_pipe_filling.attachPush(btn_pipe_filling_POP_callback);
- btn_start_pedal_filling.attachPush(btn_start_pedal_filling_POP_callback);
-
- btn_pipe_filling2.attachPush(btn_pipe_filling2_POP_callback);
- //btn_auto_filling_config.attachPush(btn_auto_filling_config_POP_callback);
-
- btn_start_auto_filling.attachPush(btn_start_auto_filling_POP_callback);
-
- btn_stop_auto_filling.attachPush(btn_stop_auto_filling_POP_callback);
-
- btn_stop_pedal.attachPush(btn_stop_pedal_POP_callback);
-
+    press_until_pipe_fills_btn.attachPush(press_until_pipe_fills_press_callback);
+    press_until_pipe_fills_btn.attachPop(press_until_pipe_fills_release_callback);
+    start_fill_btn.attachPush(start_fill_callback);
+    auto_fill_start_btn.attachPush(auto_fill_start_callback);
+    //ok_btn.attachPush(ok_btn_callback);
+    setting_rpm_slider.attachPop(rpm_slider_callback);
 }
 
-void callibrate_by_time_callback(void* ptr)
+void pedal_filling_callback(void* ptr)
 {
-    //state::operation = callibrate_by_time;
-    pedal_callback = pedal_callibrate_by_time;
-    //pedal_release_callback = pedal_callibrate_release;
-    state::last_total_steps = motor.getTotalSteps();
-    state::last_ticks_us = micros();
+    state::mode = ProgramMode::Manual;
 }
 
-void save_current_config(void)
+void auto_filling_callback(void* ptr)
 {
-    eeprm.save_configuration(cfgOnEdit);
-}
-
-void save_config_on_edit(void)
-{
-    eeprm.save_configuration(cfgOnEdit);
-}
-
-void pedal_callibrate_by_time(void* d)
-{
-    doser.dose();
-
+    state::remaining_to_fill = 200;
+    state::operation = config_auto_operation;
     
 }
 
-void pedal_callibrate_release(void* ptr)
+void calib1_btn_callback(void* ptr)
 {
-    doser.stop();
+    uint8_t id = 0;
+
+    eeprm.get_configuration(&current_cfg, id);
+    uint32_t val = 0;
+    setting_rpm_slider.getValue(&val);
+    current_cfg.motor_rpm = val;
+    calib_radius_txt.setValue(current_cfg.pipe_radius);
+    calib_volume_txt.setValue(current_cfg.volume);
+    //state::operation = config_operation;
     
 }
 
-void end_callibration()
+void calib2_btn_callback(void* ptr)
 {
-    static char buf[10] = {0};
-    txt_volume.getText(buf, 10);
-    cfgOnEdit.volume =  atoi(buf);
-    txt_pipe_r.getText(buf, 10);
-    cfgOnEdit.pipe_radius = atoi(buf);
-    cfgOnEdit.motor_steps = motor.getSteps();
-    cfgOnEdit.motor_rpm = motor.getRPM();
-    cfgOnEdit.work_time = 0;
-    cfgOnEdit.steps_to_run = motor.getTotalSteps() - state::last_total_steps;
-    save_config_on_edit();
-    state::operation = default_operation;
-    set_pedal_callbacks_todefault();
-    
+    uint8_t id = 1;
+    uint32_t val = 0;
+    eeprm.get_configuration(&current_cfg, id);
+    setting_rpm_slider.getValue(&val);
+    current_cfg.motor_rpm = val;
+    calib_radius_txt.setValue(current_cfg.pipe_radius);
+    calib_volume_txt.setValue(current_cfg.volume);
+    //state::operation = config_operation;
 }
 
-void default_pedal_callback(void*)
+void calib3_btn_callback(void * ptr)
 {
-    if(state::dosing_manual){
-        doser.dose();
-    }
-
+    uint8_t id = 2;
+    eeprm.get_configuration(&current_cfg, id);
+    uint32_t val = 0;
+    setting_rpm_slider.getValue(&val);
+    current_cfg.motor_rpm = val;
+    calib_radius_txt.setValue(current_cfg.pipe_radius);
+    calib_volume_txt.setValue(current_cfg.volume);
+    //state::operation = config_operation;
 }
 
-void automatic_dosing_pedal_callback(void*)
+void calib4_btn_callback(void * ptr)
 {
-    static char buf[10] = {0};
-    if(!(state::remaining_to_dose == NOTHING_TO_DOSE) && !doser.isDosing())
-    {
-        doser.dose();
-        state::remaining_to_dose--;
-    }
-    itoa(state::remaining_to_dose +1, buf, 3);
-    txt_fill_amount.setText(buf);
+    uint8_t id = 3;
+    eeprm.get_configuration(&current_cfg, id);
+    uint32_t val = 0;
+    setting_rpm_slider.getValue(&val);
+    current_cfg.motor_rpm = val;
+    calib_radius_txt.setValue(current_cfg.pipe_radius);
+    calib_volume_txt.setValue(current_cfg.volume); 
+    //state::operation = config_operation;
 }
 
-void automatic_dosing_at_exit(void* ptr)
+void calib5_btn_callback(void * ptr)
 {
-    state::operation = default_operation;
-
-    set_pedal_callbacks_todefault();
-}
-
-void default_pedal_release_callback(void*)
-{
-    if(state::dosing_manual)
-        doser.stop();
-}
-
-void set_pedal_callbacks_todefault(void)
-{
-    pedal_callback = default_pedal_callback;
-    pedal_release_callback = default_pedal_release_callback;
-}
-
-void automatic_dosing_callback(void* ptr)
-{
-
-}
-
-
-
-
-void default_operation(void)
-{
-
-}
-
-
-
-// NEXTION BUTTON CALLBACKS
-
-void btn_calib1_POP_callback(void* ptr)  
-{
-    eeprm.get_configuration(&cfgOnEdit, 1);
-    cfgOnEdit.id = 1;
-    //callibrate_by_time_callback(nullptr);
-}
-void btn_calib2_POP_callback(void* ptr)  
-{
-    eeprm.get_configuration(&cfgOnEdit, 2);
-    cfgOnEdit.id = 2;
-    //callibrate_by_time_callback(nullptr);
-}  
-void btn_calib3_POP_callback(void* ptr)  
-{
-    eeprm.get_configuration(&cfgOnEdit, 3);
-    cfgOnEdit.id = 3;
-    //callibrate_by_time_callback(nullptr);
-}  
-void btn_calib4_POP_callback(void* ptr)  
-{
-    eeprm.get_configuration(&cfgOnEdit, 4);
-    cfgOnEdit.id = 4;
-    //callibrate_by_time_callback(nullptr);
-}  
-void btn_calib5_POP_callback(void* ptr)  
-{
-    eeprm.get_configuration(&cfgOnEdit, 5);
-    cfgOnEdit.id = 5;
-    //callibrate_by_time_callback(nullptr);
-    
-}
-//TODO - 
-void save_calib_callback(void* ptr)
-{
-    end_callibration();
+    uint8_t id = 4;
+    eeprm.get_configuration(&current_cfg, id);
+    uint32_t val = 0;
+    while(!setting_rpm_slider.getValue(&val));
+    current_cfg.motor_rpm = val;
+    while(!calib_radius_txt.setValue(current_cfg.pipe_radius));
+    while(!calib_volume_txt.setValue(current_cfg.volume));
+    //state::operation = config_operation;
 }
 
 void chk1_callback(void* ptr)
 {
-    auto chk = reinterpret_cast<NexCheckbox*>(ptr);
-    eeprm.get_configuration(&cfgOnEdit, 1);
-    doser.configure(cfgOnEdit);
+    uint8_t id = 0;
+    eeprm.get_configuration(&current_cfg, id);
+    doser.configure(current_cfg);
+    
 }
 
 void chk2_callback(void* ptr)
 {
-    auto chk = reinterpret_cast<NexCheckbox*>(ptr);
-    eeprm.get_configuration(&cfgOnEdit, 2);
-    doser.configure(cfgOnEdit);
+    uint8_t id = 1;
+    eeprm.get_configuration(&current_cfg, id);
+    doser.configure(current_cfg);
 }
 
 void chk3_callback(void* ptr)
 {
-    auto chk = reinterpret_cast<NexCheckbox*>(ptr);
-    eeprm.get_configuration(&cfgOnEdit, 3);
-    doser.configure(cfgOnEdit);
+    uint8_t id = 2;
+    eeprm.get_configuration(&current_cfg, id);
+    doser.configure(current_cfg);
 }
 
 void chk4_callback(void* ptr)
 {
-    auto chk = reinterpret_cast<NexCheckbox*>(ptr);
-    eeprm.get_configuration(&cfgOnEdit, 4);
-    doser.configure(cfgOnEdit);
+    uint8_t id = 3;
+    eeprm.get_configuration(&current_cfg, id);
+    doser.configure(current_cfg);
 }
 
 void chk5_callback(void* ptr)
 {
-    auto chk = reinterpret_cast<NexCheckbox*>(ptr);
-    eeprm.get_configuration(&cfgOnEdit, 5);
-    doser.configure(cfgOnEdit);
+    uint8_t id = 4;
+    eeprm.get_configuration(&current_cfg, id);
+    doser.configure(current_cfg);    
 }
 
-// press until pipe fills
-void btn_pipe_filling_POP_callback(void* ptr)  
+void calib_continue_callback(void* ptr)
 {
-    state::dosing_manual = true;
+    //eeprm.save_configuration(current_cfg);
+    uint32_t val = 0;
+    state::mode = ProgramMode::Callibration;
+    //state::operation = nullptr;
+    
+
+    while(!calib_radius_txt.getValue(&val));
+    current_cfg.pipe_radius = val;
+    while(!calib_volume_txt.getValue(&val));
+    current_cfg.volume = val;
+    //page_pipe.show();
+}
+
+/*
+void calib_radius_callback(void* ptr)
+{
+   
+    state::numpad_mode = NumpadMode::calib_radius;
+    //current_cfg.volume = 999;
+    //_volume.setValue(999);
+    //calib_volume_txt.setValue(current_cfg.volume);
+}
+
+void calib_volume_callback(void* ptr)
+{
+    
+    state::numpad_mode = NumpadMode::calib_volume;
+}
+*/
+void calib_complete_callback(void* ptr)
+{
+    pedal_callback = pedal_empty_callback;
+    pedal_release_callback = pedal_empty_callback;
+    state::mode = ProgramMode::Auto;
+    current_cfg.steps_to_run = motor.getTotalSteps() - state::steps_before_callibration;
+    //current_cfg.steps_to_run = state::callibration_steps;
+    eeprm.save_configuration(current_cfg);
+    doser.configure(current_cfg);
+    read_callibrations();
+}
+
+void press_until_pipe_fills_press_callback(void* ptr)
+{
+    //doser.setMode(DosingMode::Manual);
+    //motor.setRPM(200);
+    //motor.start();
     doser.setMode(DosingMode::Manual);
-    set_pedal_callbacks_todefault();
-}
-void btn_start_pedal_filling_POP_callback(void* ptr)  
-{
-
-}
-void btn_pipe_filling2_POP_callback(void* ptr)  
-{
-    pedal_callback = automatic_dosing_callback;
-}   
-  
-void btn_start_auto_filling_POP_callback(void* ptr)  
-{
-    static char buf[10] = {0};
-    txt_fill_amount.getText(buf, 10);
-    state::remaining_to_dose =  atoi(buf);
-    state::remaining_to_dose--;
-    state::dosing_manual = false;
-    //TODO - seconds or milliseconds ? 
-    txt_delay.getText(buf, 10);
-    state::delay_between_fills = atoi(buf);
-    state::delay_between_fills *= 100;
-    doser.setMode(DosingMode::Auto);
-    state::last_fill_time = millis();
-    state::operation = auto_fill;
-    //pedal_callback = automatic_dosing_pedal_callback;
-
+    doser.dose();
 }
 
-void auto_fill(void)
+void press_until_pipe_fills_release_callback(void* ptr)
 {
-    static char buf[10] = {0};
-    if(millis() - state::last_fill_time > state::delay_between_fills)
+    doser.stop();
+}
+
+void left_to_fill_callback(void* ptr)
+{
+    //state::numpad_target = left_to_fill_txt;
+    //state::numpad_mode = NumpadMode::left_to_fill;
+}
+
+void start_fill_callback(void* ptr)
+{
+    if(state::mode == ProgramMode::Callibration)
     {
-        if(!(state::remaining_to_dose == NOTHING_TO_DOSE) && !doser.isDosing())
-        {
-            doser.dose();
-            state::remaining_to_dose--;
-        }
-        itoa(state::remaining_to_dose +1, buf, 3);
-        txt_fill_amount.setText(buf);
+        doser.setMode(DosingMode::Manual);
+        //motor.setRPM(200);
+        //current_cfg.motor_rpm = 200;
+        //doser.configure(current_cfg);
+        state::last_total_steps = motor.getTotalSteps();
+        state::callibration_steps = 0;
+        state::steps_before_callibration = motor.getTotalSteps();
+        //pedal_callback = pedal_callibration_press_callback;
+        //pedal_release_callback = pedal_callibration_release_callback;
+        pedal_callback = pedal_default_fill_callback;
+        pedal_release_callback = pedal_default_fill_release_callback;
     }
 
+    else if(state::mode == ProgramMode::Manual)
+    {
+        doser.setMode(DosingMode::Auto);
+        pedal_callback = pedal_default_fill_callback;
+        pedal_release_callback = pedal_empty_callback;
+        state::operation = nullptr;
+        //pedal_release_callback = pedal_default_fill_release_callback;
+    }
+    
+    else if(state::mode == ProgramMode::Auto)
+    {
+        doser.setMode(DosingMode::Auto);
+        doser.configure(current_cfg);
+        uint32_t val = 0;
+        while(!auto_to_fill_txt.getValue(&val));
+        while(!left_to_fill_txt.setValue(val));
+        while(!auto_wait_time_txt.getValue(&val));
+        state::delay_between_fills = val;
+        state::operation = auto_operation;
+        state::remaining_to_fill--;
+        doser.dose();
+    }
 }
 
-void btn_stop_pedal_POP_callback(void* ptr)  
+void end_fill_callback(void* ptr)
 {
- 
+    doser.stop();
+    state::operation = nullptr;
 }
 
-void btn_save_calib_callback(void* ptr)
-{
-    end_callibration(nullptr);
-}
 
-void proceed_to_filling(void* ptr)
+//TODO add end filling button
+//TODO
+void auto_fill_start_callback(void* ptr)
 {
+    state::mode = ProgramMode::Auto;
+    doser.setMode(DosingMode::Auto);
 
-}
-
-void btn_fill_by_foot_callback(void* ptr)
-{
-    state::dosing_manual = true;
-    set_pedal_callbacks_todefault();
-}
-
-void btn_numpad_ok_callback(void* ptr)
-{
-    static char buf[10];
-    txt_numpad.getText(buf,10);
-    *state::keyboard_target = atoi(buf);
+    pedal_callback = pedal_empty_callback;
+    state::auto_last_fill_ticks = millis();
+    state::operation = nullptr;
+    uint32_t val = 0; 
+    while(!auto_to_fill_txt.getValue(&val));
+    
+    state::remaining_to_fill = val;
+    while(!auto_wait_time_txt.getValue(&val));
+    state::delay_between_fills = val;
     
 }
 
-void txt_pipe_r_callback(void* ptr)
+void ok_btn_callback(void* ptr)
 {
-    state::keyboard_target = &(cfgOnEdit.pipe_radius);
+    uint32_t val = 0;
+    //input_txt.getText(state::txt_buf, 16);
+    //state::numpad_target.setText(state::txt_buf);
+    switch (state::numpad_mode)
+    {
+    case NumpadMode::left_to_fill :
+        //state::remaining_to_fill = atoi(state::txt_buf);
+        break;
+    
+    case NumpadMode::calib_radius :
+        //current_cfg.pipe_radius = atoi(state::txt_buf);
+       // calib_radius_txt.getValue(&val);
+       // current_cfg.pipe_radius = val;
+        break;
+    
+    case NumpadMode::calib_volume :
+        //current_cfg.volume = atoi(state::txt_buf);
+
+       // calib_volume_txt.getValue(&val);
+       // current_cfg.volume = val;
+        break;
+
+    default:
+        break;
+    }
+    state::numpad_mode = NumpadMode::none;
 }
 
-void txt_fill_amount_callback(void* ptr)
+void rpm_slider_callback(void* ptr)
 {
-     state::keyboard_target = &(state::fill_amount);
+    uint32_t val = 0;
+    setting_rpm_slider.getValue(&val);
+    current_cfg.motor_rpm = val;
 }
 
-void txt_delay_callback(void* ptr);
+// OPERATIONS
+void callibrate_operation(void)
 {
-    state::keyboard_target = &state::delay_between_fills;
+
 }
+
+void auto_operation(void)
+{
+
+    if(state::remaining_to_fill > 0)
+    {
+        if(!state::dosed && state::auto_last_state == true && !doser.isDosing())
+        {
+            state::auto_last_fill_ticks = millis();
+            state::dosed = true;
+        }
+
+       if(state::dosed)
+       {
+           if(millis() - state::auto_last_fill_ticks > state::delay_between_fills)
+           {
+               state::dosed = false;
+               state::remaining_to_fill--;
+               while(!left_to_fill_txt.setValue(state::remaining_to_fill));
+               doser.dose();
+           }
+       }
+        
+    }
+    else
+    {
+        doser.stop();
+    }
+    
+    state::auto_last_state = doser.isDosing();
+}
+
+void config_operation(void)
+{
+    uint32_t val = 0;
+    calib_radius_txt.getValue(&val);
+    current_cfg.pipe_radius = val;
+    calib_volume_txt.getValue(&val);
+    current_cfg.volume = val;
+    return;
+
+}
+
+void config_auto_operation(void)
+{
+    /*
+    uint32_t val = 100;
+    auto_to_fill_txt.getValue(&val);
+    state::remaining_to_fill = val;
+    auto_wait_time_txt.getValue(&val);
+    state::delay_between_fills = val;
+    */
+}
+
+// PEDAL CALLBACKS
+void pedal_callibration_press_callback(void*)
+{
+    //motor.start();
+    doser.setMode(DosingMode::Manual);
+    doser.dose();
+}
+
+void pedal_callibration_release_callback(void*)
+{
+    //motor.stop();
+    doser.stop();
+    state::callibration_steps += motor.getTotalSteps() - state::last_total_steps;
+    state::last_total_steps = motor.getTotalSteps();
+}
+
+void pedal_empty_callback(void*)
+{
+    return;
+}
+
+void pedal_default_fill_callback(void*)
+{
+    /*
+    if(state::remaining_to_fill)
+    {
+        doser.dose();
+        state::remaining_to_fill--;
+        itoa(state::remaining_to_fill, state::txt_buf, 3);
+    }
+    */
+   //motor.start();
+   doser.dose();
+}
+
+void pedal_default_fill_release_callback(void*)
+{
+    doser.stop();
+    //motor.stop();
+}
+
+void pedal_auto_fill_callback(void*)
+{
+
+}
+
+
+
+void read_callibrations()
+{
+    char* buf = state::txt_buf;
+    DosingConfiguration cfg{};
+
+    eeprm.get_configuration(&cfg, 0);
+    snprintf(buf, 40, "Kal1 %10ld%10ld", cfg.pipe_radius, (uint32_t)cfg.volume);
+    calib1_btn.setText(buf);
+
+    eeprm.get_configuration(&cfg, 1);
+    snprintf(buf, 40, "Kal2 %10ld%10ld", cfg.pipe_radius, (uint32_t)cfg.volume);
+    calib2_btn.setText(buf);
+
+    eeprm.get_configuration(&cfg, 2);
+    snprintf(buf, 40, "Kal3 %10ld%10ld", cfg.pipe_radius, (uint32_t)cfg.volume);
+    calib3_btn.setText(buf);
+
+    eeprm.get_configuration(&cfg, 3);
+    snprintf(buf, 40, "Kal4 %10ld%10ld", cfg.pipe_radius, (uint32_t)cfg.volume);
+    calib4_btn.setText(buf);
+
+    eeprm.get_configuration(&cfg, 4);
+    snprintf(buf, 40, "Kal5 %10ld%10ld", cfg.pipe_radius, (uint32_t)cfg.volume);
+    calib5_btn.setText(buf);
+}
+
+

@@ -14,30 +14,57 @@
  */
 #include "NexText.h"
 
-NexText::NexText(uint8_t pid, uint8_t cid, const char *name)
-    :NexTouch(pid, cid, name)
+NexText::NexText(uint8_t pid, uint8_t cid, const char *name, const char *page_name = nullptr)
+    :NexTouch(pid, cid, name, page_name)
 {
 }
 
 uint16_t NexText::getText(char *buffer, uint16_t len)
 {
+    /*
+    static char cmd[24];
+    sprintf(cmd, "get %s.txt", getObjName());
+    sendCommand(cmd);
+    return recvRetString(buffer, len);
+    */
+    
     String cmd;
+
     cmd += "get ";
+    if(getObjPageName())
+    {
+        cmd += getObjPageName();
+        cmd += '.';
+    }
     cmd += getObjName();
     cmd += ".txt";
     sendCommand(cmd.c_str());
     return recvRetString(buffer,len);
+    
 }
 
 bool NexText::setText(const char *buffer)
 {
+    /*
+    static char cmd[24];
+    sprintf(cmd, "%s.txt=\"%s\" ", getObjName(), buffer);
+    sendCommand(cmd);
+    return recvRetCommandFinished(); 
+    */
+    
     String cmd;
+    if(getObjPageName())
+    {
+        cmd += getObjPageName();
+        cmd += '.';
+    }
     cmd += getObjName();
     cmd += ".txt=\"";
     cmd += buffer;
     cmd += "\"";
     sendCommand(cmd.c_str());
     return recvRetCommandFinished();    
+    
 }
 
 uint32_t NexText::Get_background_color_bco(uint32_t *number)

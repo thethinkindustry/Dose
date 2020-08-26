@@ -14,14 +14,20 @@
  */
 #include "NexSlider.h"
 
-NexSlider::NexSlider(uint8_t pid, uint8_t cid, const char *name)
-    :NexTouch(pid, cid, name)
+NexSlider::NexSlider(uint8_t pid, uint8_t cid, const char *name, const char* page_name = nullptr)
+    :NexTouch(pid, cid, name, page_name)
 {
 }
 
 bool NexSlider::getValue(uint32_t *number)
 {
     String cmd = String("get ");
+    if(getObjPageName())
+    {
+        cmd += getObjPageName();
+        cmd += '.';
+    }
+    
     cmd += getObjName();
     cmd += ".val";
     sendCommand(cmd.c_str());
@@ -30,10 +36,16 @@ bool NexSlider::getValue(uint32_t *number)
 
 bool NexSlider::setValue(uint32_t number)
 {
-    char buf[10] = {0};
+    char buf[20] = {0};
     String cmd;
     
     utoa(number, buf, 10);
+    if(getObjPageName())
+    {
+        cmd += getObjPageName();
+        cmd += '.';
+    }
+    
     cmd += getObjName();
     cmd += ".val=";
     cmd += buf;

@@ -2,8 +2,8 @@
 #define _Button_
 
 #include <stdint.h>
-#define BUTTON_MAX_BUTTONS 5
-#define BUTTON_MAX_TASKS 5
+#define BUTTON_MAX_BUTTONS 1
+#define BUTTON_MAX_TASKS 1
 
 using ButtonFunc = void (*) (void*);
 

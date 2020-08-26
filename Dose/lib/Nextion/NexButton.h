@@ -39,7 +39,7 @@ public: /* methods */
     /**
      * @copydoc NexObject::NexObject(uint8_t pid, uint8_t cid, const char *name);
      */
-    NexButton(uint8_t pid, uint8_t cid, const char *name);
+    NexButton(uint8_t pid, uint8_t cid, const char *name, const char *page_name = nullptr);
 
     /**
      * Get text attribute of component.

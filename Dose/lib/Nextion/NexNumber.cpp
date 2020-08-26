@@ -14,14 +14,21 @@
  */
 #include "NexNumber.h"
 
-NexNumber::NexNumber(uint8_t pid, uint8_t cid, const char *name)
-    :NexTouch(pid, cid, name)
+NexNumber::NexNumber(uint8_t pid, uint8_t cid, const char *name, const char *page_name = nullptr)
+    :NexTouch(pid, cid, name, page_name)
 {
 }
 
 bool NexNumber::getValue(uint32_t *number)
 {
     String cmd = String("get ");
+    
+    if(getObjPageName())
+    {
+        cmd += getObjPageName();
+        cmd += '.';
+    }
+        
     cmd += getObjName();
     cmd += ".val";
     sendCommand(cmd.c_str());
@@ -30,16 +37,25 @@ bool NexNumber::getValue(uint32_t *number)
 
 bool NexNumber::setValue(uint32_t number)
 {
-    char buf[10] = {0};
+
+    char buf[30] = {0};
     String cmd;
     
-    utoa(number, buf, 10);
+    ultoa(number, buf, 10);
+    
+    if(getObjPageName())
+    {
+        cmd += getObjPageName();
+        cmd += '.';
+    }
+    
     cmd += getObjName();
     cmd += ".val=";
     cmd += buf;
 
     sendCommand(cmd.c_str());
     return recvRetCommandFinished();
+
 }
 
 uint32_t NexNumber::Get_background_color_bco(uint32_t *number)

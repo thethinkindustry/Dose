@@ -1,4 +1,5 @@
 #include "AVR_StepMotor.h"
+#include <DosingController.h>
 
 #ifndef TESTING_NATIVE
 

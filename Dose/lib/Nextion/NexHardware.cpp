@@ -42,7 +42,7 @@
  * @retval false - failed.
  *
  */
-bool recvRetNumber(uint32_t *number, uint32_t timeout)
+bool recvRetNumber(uint32_t *number, uint32_t timeout = 100)
 {
     bool ret = false;
     uint8_t temp[8] = {0};
@@ -184,7 +184,7 @@ void sendCommand(const char* cmd)
  * @retval false - failed. 
  *
  */
-bool recvRetCommandFinished(uint32_t timeout)
+bool recvRetCommandFinished(uint32_t timeout = 100)
 {    
     bool ret = false;
     uint8_t temp[4] = {0};

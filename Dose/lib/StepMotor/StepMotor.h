@@ -46,9 +46,9 @@ class StepMotor
     void setRPM_t();
     StepDirection direction;
     bool active;
-    uint32_t steps;
-    uint32_t rpm;
-    uint32_t rpm_t;
+    uint16_t steps;
+    uint16_t rpm;
+    uint16_t rpm_t;
     uint64_t total_steps;
 };
 

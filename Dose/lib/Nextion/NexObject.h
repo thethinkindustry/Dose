@@ -40,7 +40,7 @@ public: /* methods */
      * @param cid - component id.    
      * @param name - pointer to an unique name in range of all components. 
      */
-    NexObject(uint8_t pid, uint8_t cid, const char *name);
+    NexObject(uint8_t pid, uint8_t cid, const char *name, const char* page_name = nullptr);
 
     /**
      * Print current object'address, page id, component id and name. 
@@ -49,7 +49,7 @@ public: /* methods */
      */
     void printObjInfo(void);
 
-protected: /* methods */
+//protected: /* methods */
 
     /*
      * Get page id.
@@ -71,11 +71,13 @@ protected: /* methods */
      * @return the name of component. 
      */
     const char *getObjName(void);    
+    const char* getObjPageName(void);
     
 private: /* data */ 
     uint8_t __pid; /* Page ID */
     uint8_t __cid; /* Component ID */
     const char *__name; /* An unique name */
+    const char* __page_name;
 };
 /**
  * @}

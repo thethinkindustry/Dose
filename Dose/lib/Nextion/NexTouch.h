@@ -21,6 +21,7 @@
 #include "NexConfig.h"
 #include "NexObject.h"
 
+
 /**
  * @addtogroup TouchEvent 
  * @{ 
@@ -60,7 +61,7 @@ public: /* methods */
     /**
      * @copydoc NexObject::NexObject(uint8_t pid, uint8_t cid, const char *name);
      */
-    NexTouch(uint8_t pid, uint8_t cid, const char *name);
+    NexTouch(uint8_t pid, uint8_t cid, const char *name, const char* page_name = nullptr);
 
     /**
      * Attach an callback function of push touch event. 

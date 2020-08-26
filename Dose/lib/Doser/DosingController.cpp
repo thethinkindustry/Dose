@@ -2,8 +2,6 @@
 #include <Arduino.h>
 
 DosingConfiguration::DosingConfiguration()
-:id{0}, volume{0}, pipe_radius{0}, volumePerSec{0}, stepPerUnit{0}, motor_steps{0},
-work_time{0}, steps_to_run{0}, checksum{0}
 {
 
 }
@@ -87,15 +85,18 @@ void DosingController::run(uint64_t ticks)
         if((motor->getTotalSteps() - last_steps_runned) >= config.steps_to_run)
         {
             stop();
-            Serial.println("stopped");
+            //last_steps_runned = motor->getTotalSteps();
             
         }
+        /*
         else
         {
             motor->run(ticks);
         }
+        */
         
     }
+    motor->run(ticks);
     /*
     if(mode == DosingMode::Auto && ((motor_total_steps - last_steps_runned) >= config.steps_to_run))
     {

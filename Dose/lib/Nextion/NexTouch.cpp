@@ -15,9 +15,10 @@
 #include "NexTouch.h"
 
 
-NexTouch::NexTouch(uint8_t pid, uint8_t cid, const char *name)
-    :NexObject(pid, cid, name)
+NexTouch::NexTouch(uint8_t pid, uint8_t cid, const char *name, const char* page_name = nullptr)
+    :NexObject(pid, cid, name, page_name)
 {
+
     this->__cb_push = NULL;
     this->__cb_pop = NULL;
     this->__cbpop_ptr = NULL;

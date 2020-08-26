@@ -33,21 +33,27 @@ void EEPROMController::read_block(void* dst, const void* src, size_t n)
 void EEPROMController::save_configuration(DosingConfiguration cfg)
 {
     cfg.checksum = calculateChecksum(&cfg);
-    auto write_address = reinterpret_cast<uint8_t*>(eeprom::first_save_address + sizeof(DosingConfiguration)*cfg.id);
+    auto write_address = (uint8_t*)(40*cfg.id);
+    //auto write_address = reinterpret_cast<uint8_t*>(eeprom::get_save_address<DosingConfiguration>(cfg.id));    
+    //auto write_address = reinterpret_cast<uint8_t*>(eeprom::first_save_address + sizeof(DosingConfiguration)*cfg.id);
     write((uint8_t*)&cfg, write_address, sizeof(DosingConfiguration));
 }
 
 void EEPROMController::get_configuration(DosingConfiguration* cfg, uint8_t id)
 {
-    auto read_address = reinterpret_cast<uint8_t*>(eeprom::first_save_address + sizeof(DosingConfiguration)*id);
+    auto read_address = (uint8_t*)(40*id);
+    //auto read_address = reinterpret_cast<uint8_t*>(eeprom::get_save_address<DosingConfiguration>(id));
     read( (uint8_t*)cfg, read_address, sizeof(DosingConfiguration));
     // if the configuration is corrupted replace it with an empty one
+    
     if(!checkIntegrity(cfg))
     {
         restoreConfig(id);
         *cfg = DosingConfiguration();
         cfg->id = id;
     }
+    
+    cfg->id = id;
 }
 
 void EEPROMController::restoreConfig(uint8_t id)

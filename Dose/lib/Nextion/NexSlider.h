@@ -33,7 +33,7 @@ public: /* methods */
     /**
      * @copydoc NexObject::NexObject(uint8_t pid, uint8_t cid, const char *name);
      */
-    NexSlider(uint8_t pid, uint8_t cid, const char *name);
+    NexSlider(uint8_t pid, uint8_t cid, const char *name, const char* page_name = nullptr);
 
     /**
      * Get the value of slider. 
